@@ -1,0 +1,3345 @@
+				;file D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\i2c test.c
+				;1	#include "HT66F2390.h"
+				;2	#include "i2c test.h"
+				;3	unsigned long counter=0;
+				;4	unsigned char instruction=0,buffer=0;
+				;5	void main(){
+				@code .SECTION 'CODE'
+				include HT66F2390.inc
+0000	1F0B	clr     PBP
+0001	2818	jmp     begin_startup_value
+				startupend3:
+				@start .SECTION 'CODE'
+0052	0F00	mov     a, 0H
+0053	008B	mov     PBP, a
+0054	2DF0	jmp     _main
+				;6		_wdtc=0xA8;
+				_main:
+				_main:
+05F0	0FA8	mov     a, A8H
+05F1	00BE	mov     WDTC, a
+				;7		_pawu=1;
+05F2	0F01	mov     a, 1H
+05F3	0097	mov     PAWU, a
+				;8		_phs0=0x00;
+05F4	9F5B	lclr    PHS0
+				;9		_scc=0x04;
+05F6	0F04	mov     a, 4H
+05F7	00BA	mov     SCC, a
+				;10		_hircc=0x09;
+05F8	0F09	mov     a, 9H
+05F9	00BB	mov     HIRCC, a
+				;11		_brg1=0x08;//uart1
+05FA	0F08	mov     a, 8H
+05FB	8099	lmov    BRG1, a
+				;12		
+				;13		_pds0=0x28;
+05FD	0F28	mov     a, 28H
+05FE	80D3	lmov    PDS0, a
+				;14		_rx1ps=0;
+0600	B4CB	lclr    RX1PS
+				;15		
+				;16		_u1cr1=0x80;
+0602	0F80	mov     a, 80H
+0603	8096	lmov    U1CR1, a
+				;17		_u1cr2=0xE0;
+0605	0FE0	mov     a, E0H
+0606	8097	lmov    U1CR2, a
+				;18		
+				;19		_brg0=0x08;//uart0
+0608	0F08	mov     a, 8H
+0609	8094	lmov    BRG0, a
+				;20		_pds1=0x09;
+060B	0F09	mov     a, 9H
+060C	80D4	lmov    PDS1, a
+				;21		_rx0ps=1;
+060E	B04B	lset    RX0PS
+				;22		_u0cr1=0x80;
+0610	0F80	mov     a, 80H
+0611	8091	lmov    U0CR1, a
+				;23		_u0cr2=0xE0;
+0613	0FE0	mov     a, E0H
+0614	8092	lmov    U0CR2, a
+				;24		
+				;25		//Timer
+				;26		_stm0dl=0x00; //計數器低位元
+0616	1F50	clr     STM0DL
+				;27		_stm0dh=0x00; //計數器高位元
+0617	1F51	clr     STM0DH
+				;28		_stm0al=0xD0; //比較器A低位元
+0618	0FD0	mov     a, D0H
+0619	00D2	mov     STM0AL, a
+				;29		_stm0ah=0x07; //比較器A高位元
+061A	0F07	mov     a, 7H
+061B	00D3	mov     STM0AH, a
+				;30		_stm0c0=0x00; //選擇計數時鐘
+061C	1F4E	clr     STM0C0
+				;31		_stm0c1=0xC1; //設定STM0計數模式,比較器為比較器A
+061D	0FC1	mov     a, C1H
+061E	00CF	mov     STM0C1, a
+				;32		_st0on=1; //計數器開啟
+061F	31CE	set     ST0ON
+				;33		_mf0e=1; //STM中斷
+0620	3091	set     MF0E
+				;34		_stm0ae=1; //比較器A中斷使能
+0621	31B3	set     STM0AE
+				;35		_emi=1; //中斷總開關
+0622	3010	set     EMI
+				;36		gpioinit();
+0623	25E9	call    _gpioinit
+				_L2:
+0624	475B	mov     a, buffer[0]
+0625	4080	mov     ra, a
+0626	475A	mov     a, instruction[0]
+0627	40D9	mov     _main_2, a
+				;37		while(1)
+				;38		{
+				;39			if(_rxif0==1){
+				_L16:
+0628	B910	lsnz    RXIF0
+062A	2E2E	jmp     _L3
+				;40				buffer=_txr_rxr0;	
+062B	8713	lmov    a, TXR_RXR0
+062D	4080	mov     ra, a
+				;41			}
+				;42			if(buffer!=0)
+				_L3:
+062E	5E00	snz     ra
+062F	2E32	jmp     _L4
+0630	4700	mov     a, ra
+0631	40D9	mov     _main_2, a
+				;43			{
+				;44				instruction=buffer;
+				;45				buffer=0;
+				;46			}
+				;47			switch(instruction)
+				_L4:
+0632	4759	mov     a, _main_2
+0633	0A41	sub     a, 41H
+0634	3D0A	sz      Z
+0635	2E57	jmp     _L6
+0636	0A01	sub     a, 1H
+0637	3D0A	sz      Z
+0638	2E5C	jmp     _L7
+0639	4759	mov     a, _main_2
+063A	0A43	sub     a, 43H
+063B	3D0A	sz      Z
+063C	2E61	jmp     _L8
+063D	0A01	sub     a, 1H
+063E	3D0A	sz      Z
+063F	2E66	jmp     _L9
+0640	4759	mov     a, _main_2
+0641	0A45	sub     a, 45H
+0642	3D0A	sz      Z
+0643	2E6B	jmp     _L10
+0644	0A01	sub     a, 1H
+0645	3D0A	sz      Z
+0646	2E70	jmp     _L11
+0647	4759	mov     a, _main_2
+0648	0A47	sub     a, 47H
+0649	3D0A	sz      Z
+064A	2E75	jmp     _L12
+064B	0A01	sub     a, 1H
+064C	3D0A	sz      Z
+064D	2E7A	jmp     _L13
+064E	4759	mov     a, _main_2
+064F	0A49	sub     a, 49H
+0650	3D0A	sz      Z
+0651	2E7F	jmp     _L14
+0652	0A02	sub     a, 2H
+0653	3D0A	sz      Z
+0654	2E84	jmp     _L15
+0655	5F00	clr     ra
+0656	2E28	jmp     _L16
+				_L6:
+0657	5F5B	clr     buffer[0]
+0658	0F41	mov     a, 41H
+0659	40DA	mov     instruction[0], a
+				;48			{
+				;49				case 'A':
+				;50					Login();  //登入判斷
+065A	2514	call    _Login
+065B	2E88	jmp     _L22
+				_L7:
+065C	5F5B	clr     buffer[0]
+065D	0F42	mov     a, 42H
+065E	40DA	mov     instruction[0], a
+				;51					instruction=0;
+				;52					break;
+				;53				case 'B':
+				;54					Car_Open();//啟動電門
+065F	2506	call    _Car_Open
+0660	2E88	jmp     _L22
+				_L8:
+0661	5F5B	clr     buffer[0]
+0662	0F43	mov     a, 43H
+0663	40DA	mov     instruction[0], a
+				;55					instruction=0;
+				;56					break;
+				;57				case 'C':
+				;58					Car_Close();//關閉電門
+0664	24F8	call    _Car_Close
+0665	2E88	jmp     _L22
+				_L9:
+0666	5F5B	clr     buffer[0]
+0667	0F44	mov     a, 44H
+0668	40DA	mov     instruction[0], a
+				;59					instruction=0;
+				;60					break;
+				;61				case 'D':
+				;62					Anti_Open();//開啟防盜
+0669	24E9	call    _Anti_Open
+066A	2E88	jmp     _L22
+				_L10:
+066B	5F5B	clr     buffer[0]
+066C	0F45	mov     a, 45H
+066D	40DA	mov     instruction[0], a
+				;63					instruction=0;
+				;64					break;
+				;65				case 'E':
+				;66					Anti_Close();//關閉防盜
+066E	24DB	call    _Anti_Close
+066F	2E88	jmp     _L22
+				_L11:
+0670	5F5B	clr     buffer[0]
+0671	0F46	mov     a, 46H
+				L0672:
+0672	40DA	mov     instruction[0], a
+				;67					instruction=0;
+				;68					break;
+				;69				case 'F':
+				;70					Key_Lock_Open(); //開啟鑰匙功能
+0673	24D4	call    _Key_Lock_Open
+				L0674:
+0674	2E88	jmp     _L22
+				_L12:
+0675	5F5B	clr     buffer[0]
+0676	0F47	mov     a, 47H
+0677	40DA	mov     instruction[0], a
+				;71					instruction=0;
+				;72					break;
+				;73				case 'G':
+				;74					Key_Lock_Close(); //關閉鑰匙功能
+0678	24CD	call    _Key_Lock_Close
+0679	2E88	jmp     _L22
+				_L13:
+067A	5F5B	clr     buffer[0]
+067B	0F48	mov     a, 48H
+067C	40DA	mov     instruction[0], a
+				;75					instruction=0;
+				;76					break;
+				;77				case 'H':
+				;78					Find_Car(); //尋車
+067D	248E	call    _Find_Car
+067E	2E88	jmp     _L22
+				_L14:
+067F	5F5B	clr     buffer[0]
+0680	0F49	mov     a, 49H
+0681	40DA	mov     instruction[0], a
+				;79					instruction=0;
+				;80					break;
+				;81				case 'I':
+				;82					ChangePassWord();//更改密碼
+0682	236A	call    _ChangePassWord
+0683	2E88	jmp     _L22
+				_L15:
+0684	5F5B	clr     buffer[0]
+0685	0F4B	mov     a, 4BH
+0686	40DA	mov     instruction[0], a
+				;83					instruction=0;
+				;84					break;
+				;85				case 'K':
+				;86					SetUserModeZero();
+0687	2002	call    _SetUserModeZero
+				;87					instruction=0;
+				_L22:
+0688	5F5A	clr     instruction[0]
+				;88					break;
+0689	2E24	jmp     _L2
+068A	2E8A	jmp     $
+068B	0000	nop
+068C	0000	nop
+				L068D:
+068D	0000	nop
+068E	0000	nop
+068F	0000	nop
+				L0690:
+0690	0000	nop
+0691	1785	sdz     ACC
+0692	2E90	jmp     L0690
+				L0693:
+0693	0000	nop
+0694	1785	sdz     ACC
+0695	2E93	jmp     L0693
+0696	578E	sdz     time
+0697	2E93	jmp     L0693
+0698	0003	ret
+				;89				default:
+				;90					break;
+				;91				
+				;92			}
+				;93			
+				;94		}
+				;95		/*unsigned char *aaa,i;
+				;96		i2c_EEPROM_WriteData_1(0b1010000,"8ce305c7d16d4b05@");
+				;97		//aaa=i2c_EEPROM_readData_2(0b1010000);
+				;98		for(i=0;i<17;i++)
+				;99		{
+				;100			_txr_rxr0=aaa[i];
+				;101			GCC_DELAY(3000);
+				;102		}*/
+				;103	}
+				;104	void __attribute((interrupt(0x14)))ISR_tmr0(void)
+				;105	{ 
+				@ISR_tmr0_code .SECTION 'CODE'
+0014	4085	mov     r114, a
+0015	070B	mov     a, PBP
+0016	1F0B	clr     PBP
+0017	2855	jmp     _ISR_tmr0
+				_ISR_tmr0:
+				_ISR_tmr0:
+0055	4086	mov     r214, a
+0056	070A	mov     a, STATUS
+0057	40E9	mov     r314, a
+0058	0703	mov     a, MP1L
+0059	40EA	mov     r414, a
+005A	0704	mov     a, MP1H
+005B	40EB	mov     r514, a
+005C	0707	mov     a, TBLP
+005D	40EC	mov     r614, a
+005E	0709	mov     a, TBHP
+005F	40ED	mov     r714, a
+				;106			 if(instruction!=0)
+0060	5E5A	snz     instruction[0]
+0061	2867	jmp     _L25
+				;107			 {
+				;108			 	counter=0;
+				L0062:
+0062	5F60	clr     counter[0]
+0063	5F61	clr     counter[1]
+0064	5F62	clr     counter[2]
+0065	5F63	clr     counter[3]
+0066	2876	jmp     _L26
+				;109			 }
+				;110			 else if(counter>=20)
+				_L25:
+0067	0F13	mov     a, 13H
+0068	4260	sub     a, counter[0]
+0069	0F00	mov     a, 0H
+006A	5261	sbc     a, counter[1]
+006B	0F00	mov     a, 0H
+006C	5262	sbc     a, counter[2]
+006D	0F00	mov     a, 0H
+006E	5263	sbc     a, counter[3]
+006F	3C0A	sz      C
+0070	2876	jmp     _L26
+				;111			 {
+				;112			 	counter=0;
+0071	5F60	clr     counter[0]
+0072	5F61	clr     counter[1]
+0073	5F62	clr     counter[2]
+0074	5F63	clr     counter[3]
+				;113			 	Anti_theft();
+0075	27B3	call    _Anti_theft
+				;114			 }
+				;115			 counter++;
+				_L26:
+0076	0F01	mov     a, 1H
+0077	43E0	addm    a, counter[0]
+0078	0F00	mov     a, 0H
+0079	53E1	adcm    a, counter[1]
+007A	53E2	adcm    a, counter[2]
+007B	53E3	adcm    a, counter[3]
+				;116			 _mf0f=0;
+007C	3691	clr     MF0F
+				;117			 _stm0af=0;
+007D	37B3	clr     STM0AF
+007E	4706	mov     a, r214
+007F	008B	mov     PBP, a
+0080	4769	mov     a, r314
+0081	008A	mov     STATUS, a
+0082	476A	mov     a, r414
+0083	0083	mov     MP1L, a
+0084	476B	mov     a, r514
+0085	0084	mov     MP1H, a
+0086	476C	mov     a, r614
+0087	0087	mov     TBLP, a
+0088	476D	mov     a, r714
+0089	0089	mov     TBHP, a
+008A	1D05	tabrd   ACC
+008B	4705	mov     a, r114
+008C	0004	reti
+008D	0000	nop
+008E	0000	nop
+008F	0000	nop
+0090	0000	nop
+0091	0000	nop
+0092	0000	nop
+0093	5441	inca    Changepassword[13]
+0094	0A0D	sub     a, DH
+0095	4100	cpla    ra
+0096	2B54	jmp     L0354
+0097	454E	or      a, Response1
+0098	4F54	dc	04F54H
+0099	4550	or      a, Response1
+009A	0D4E	or      a, 4EH
+009B	000A	dc	0000AH
+009C	5441	inca    Changepassword[13]
+009D	432B	add     a, data[19]
+009E	5049	sza     Response2[1]
+009F	504F	sza     Response1[1]
+00A0	4E45	dc	04E45H
+00A1	313D	set     LXTC.2
+00A2	222C	call    L022C
+00A3	4354	add     a, Response
+00A4	2250	call    L0250
+00A5	222C	call    L022C
+00A6	616D	call    96DH
+00A7	656B	call    D6BH
+00A8	2E72	jmp     L0672
+00A9	6669	call    E69H
+00AA	7474	clr     r714[7].0
+00AB	2E74	jmp     L0674
+00AC	6F63	jmp     F63H
+00AD	226D	call    L026D
+00AE	382C	snz     PHPU0
+00AF	0D30	or      a, 30H
+00B0	000A	dc	0000AH
+00B1	5441	inca    Changepassword[13]
+00B2	432B	add     a, data[19]
+00B3	5049	sza     Response2[1]
+00B4	4553	or      a, Response1[3]
+00B5	444E	xor     a, Response1
+00B6	313D	set     LXTC.2
+00B7	312C	set     PHPU2
+00B8	3830	snz     __phc[5].0
+00B9	0A0D	sub     a, DH
+00BA	4700	mov     a, ra
+00BB	5445	inca    Changepassword[17]
+00BC	2F20	jmp     L0720
+00BD	7274	set     r714[7].4
+00BE	6769	call    F69H
+00BF	6567	call    D67H
+00C0	2F72	jmp     L0772
+00C1	6F4E	jmp     F4EH
+00C2	6974	jmp     974H
+00C3	6563	call    D63H
+00C4	772F	clr     address[1].6
+00C5	7469	clr     r314.0
+00C6	2F68	jmp     L0768
+00C7	656B	call    L0D6B
+00C8	2F79	jmp     L0779
+00C9	416F	cpla    r714[2]
+00CA	4755	mov     a, Response[1]
+00CB	756E	clr     r714[1].2
+00CC	7135	set     Changepassword[1].2
+00CD	545F	inca    i[1]
+00CE	6252	call    A52H
+00CF	6864	jmp     864H
+00D0	4256	sub     a, Response[2]
+00D1	4448	xor     a, Response2
+00D2	6359	call    B59H
+00D3	3542	clr     EEAH.2
+00D4	5052	sza     Response1[2]
+00D5	307A	set     FD2L.0
+00D6	674F	call    F4FH
+00D7	6C75	jmp     C75H
+00D8	5748	sdza    Response2
+00D9	3051	set     STM0DH.0
+00DA	5555	deca    Response[1]
+00DB	6954	jmp     954H
+00DC	484B	dc	0484BH
+00DD	4830	dc	04830H
+00DE	2062	call    L0062
+00DF	5448	inca    Response2
+00E0	5054	sza     Response
+00E1	312F	set     VBGRC.2
+00E2	312E	set     RSTC2
+00E3	0A0D	sub     a, DH
+00E4	6F48	jmp     F48H
+00E5	7473	clr     r714[6].0
+00E6	203A	call    L003A
+00E7	616D	call    L096D
+00E8	656B	call    L0D6B
+00E9	2E72	jmp     L0672
+00EA	6669	call    L0E69
+00EB	7474	clr     r714[7].0
+00EC	2E74	jmp     L0674
+00ED	6F63	jmp     L0F63
+00EE	0D6D	or      a, 6DH
+00EF	0D0A	or      a, AH
+00F0	000A	dc	0000AH
+00F1	4B4F	dc	04B4FH
+00F2	7300	set     ra.6
+00F3	6375	call    B75H
+00F4	6563	call    L0D63
+00F5	7373	set     r714[6].6
+00F6	6600	call    E00H
+00F7	6961	jmp     961H
+00F8	756C	clr     r614.2
+00F9	6572	call    D72H
+00FA	0000	nop
+00FB	0000	nop
+00FC	0000	nop
+				L00FD:
+00FD	0000	nop
+00FE	0000	nop
+				L00FF:
+00FF	0000	nop
+				L0100:
+0100	0000	nop
+0101	1785	sdz     ACC
+0102	2900	jmp     L0100
+				L0103:
+0103	0000	nop
+0104	1785	sdz     ACC
+0105	2903	jmp     L0103
+0106	5797	sdz     data
+0107	2903	jmp     L0103
+0108	0003	ret
+0109	0000	nop
+010A	0000	nop
+010B	0000	nop
+010C	0000	nop
+				L010D:
+010D	0000	nop
+010E	0000	nop
+				L010F:
+010F	0000	nop
+0110	1785	sdz     ACC
+0111	290F	jmp     L010F
+0112	0003	ret
+				;118	}
+				;file D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\i2c test1.c
+				;1	//-----------include---------------
+				;2	
+				;3	#include "HT66F2390.h"
+				;4	
+				;5	//-----------I2Cdefine---------------
+				;6	
+				;7	#define Bit_delay GCC_DELAY(1025) 
+				;8	
+				;9	#define PULLUP_SDA1 _papu3
+				;10	#define PULLUP_SDA2 _pgpu7
+				;11	#define PULLUP_SCL1 _papu1
+				;12	#define PULLUP_SCL2 _pgpu6
+				;13	
+				;14	#define SCL_PORT1  _pa1
+				;15	#define SCL_PORT2  _pg6
+				;16	#define SDA_PORT1  _pa3
+				;17	#define SDA_PORT2  _pg7
+				;18	
+				;19	#define SCL_PORT_ioset1 _pac1
+				;20	#define SCL_PORT_ioset2 _pgc6
+				;21	#define SDA_PORT_ioset1 _pac3
+				;22	#define SDA_PORT_ioset2 _pgc7
+				;23	
+				;24	#define I2C_DELAY_TIME 200
+				;25	#define I2C_START_STOP_DELAY_TIME 50
+				;26	
+				;27	
+				;28	#define ACK   1
+				;29	#define NO_ACK   0
+				;30	
+				;31	//-----------GPIO define---------------
+				;32	#define car_power_ioset _pac5
+				;33	#define car_power _pa5
+				;34	
+				;35	#define buzzer_ioset _phc2
+				;36	#define buzzer_switch _d2
+				;37	
+				;38	#define lockpower_ioset _pbc7
+				;39	#define lockpower_switch _pb7
+				;40	
+				;41	//-----------global variable-----------
+				;42	int i=0;
+				;43	unsigned char TheftMode=0;   //防盜模式開關
+				;44	unsigned int gxh=0;   //六軸當前值
+				;45	int gxh1=0;   //六軸之前值
+				;46	int userMode=0;
+				;47	//-----------function---------------
+				;48	
+				;49	void i2c_init()
+				;50	{
+				;51		PULLUP_SDA1 = 1;
+				_i2c_init:
+				_i2c_init:
+01E9	3196	set     PAPU3
+				;52		PULLUP_SDA2 = 1;
+01EA	33A9	set     PGPU7
+				;53		PULLUP_SCL1 = 1;
+01EB	3096	set     PAPU1
+				;54		PULLUP_SCL2 = 1;
+01EC	3329	set     PGPU6
+				;55		SCL_PORT_ioset1 = 0;
+01ED	3495	clr     PAC1
+				;56		SCL_PORT_ioset2 = 0;
+01EE	3728	clr     PGC6
+				;57		SDA_PORT_ioset1 = 0;
+01EF	3595	clr     PAC3
+				;58		SDA_PORT_ioset2 = 0;
+01F0	37A8	clr     PGC7
+				;59		SCL_PORT1 = 1;
+01F1	3094	set     PA1
+				;60		SCL_PORT2 = 1;
+01F2	3327	set     PG6
+				;61		SDA_PORT1 = 1;
+01F3	3194	set     PA3
+				;62		SDA_PORT2 = 1;
+01F4	33A7	set     PG7
+01F5	0003	ret
+				;63	}
+				;64	
+				;65	void i2c_start()
+				;66	{
+				;67		SCL_PORT_ioset1 = 0;
+				_i2c_start:
+				_i2c_start:
+01C4	3495	clr     PAC1
+				;68		SCL_PORT_ioset2 = 0;
+01C5	3728	clr     PGC6
+				;69		SDA_PORT_ioset1 = 0;
+01C6	3595	clr     PAC3
+				;70		SDA_PORT_ioset2 = 0;
+01C7	37A8	clr     PGC7
+				;71		
+				;72		SDA_PORT1 = 1;
+01C8	3194	set     PA3
+				;73		SDA_PORT2 = 1;
+01C9	33A7	set     PG7
+				;74		SCL_PORT1 = 1;
+01CA	3094	set     PA1
+				;75		SCL_PORT2 = 1;
+01CB	3327	set     PG6
+				;76		GCC_DELAY(I2C_DELAY_TIME-I2C_START_STOP_DELAY_TIME);
+01CC	0F23	mov     a, 23H
+01CD	340B	clr     PBP0
+01CE	348B	clr     PBP1
+01CF	350B	clr     PBP2
+01D0	210F	call    L010F
+01D1	350B	clr     PBP2
+01D2	348B	clr     PBP1
+01D3	340B	clr     PBP0
+				;77		SDA_PORT1 = 0;
+01D4	3594	clr     PA3
+				;78		SDA_PORT2 = 0;
+01D5	37A7	clr     PG7
+				;79		GCC_DELAY(I2C_START_STOP_DELAY_TIME);
+01D6	0F0A	mov     a, AH
+01D7	340B	clr     PBP0
+01D8	348B	clr     PBP1
+01D9	350B	clr     PBP2
+01DA	210F	call    L010F
+01DB	350B	clr     PBP2
+01DC	348B	clr     PBP1
+01DD	340B	clr     PBP0
+				;80		SCL_PORT1 = 0;
+01DE	3494	clr     PA1
+				;81		SCL_PORT2 = 0;
+01DF	3727	clr     PG6
+				;82		GCC_DELAY(I2C_DELAY_TIME - I2C_START_STOP_DELAY_TIME);
+01E0	0F23	mov     a, 23H
+01E1	340B	clr     PBP0
+01E2	348B	clr     PBP1
+01E3	350B	clr     PBP2
+01E4	210F	call    L010F
+01E5	350B	clr     PBP2
+01E6	348B	clr     PBP1
+01E7	340B	clr     PBP0
+01E8	0003	ret
+				;83	}
+				;84	
+				;85	void i2c_stop()
+				;86	{
+				;87		SCL_PORT_ioset1 = 0;
+				_i2c_stop:
+				_i2c_stop:
+0113	3495	clr     PAC1
+				;88		SCL_PORT_ioset2 = 0;
+0114	3728	clr     PGC6
+				;89		SDA_PORT_ioset1 = 0;
+0115	3595	clr     PAC3
+				;90		SDA_PORT_ioset2 = 0;
+0116	37A8	clr     PGC7
+				;91		
+				;92		SDA_PORT1 = 0;
+0117	3594	clr     PA3
+				;93		SDA_PORT2 = 0;
+0118	37A7	clr     PG7
+				;94		GCC_DELAY(I2C_START_STOP_DELAY_TIME);
+0119	0F0A	mov     a, AH
+011A	340B	clr     PBP0
+011B	348B	clr     PBP1
+011C	350B	clr     PBP2
+011D	210F	call    L010F
+011E	350B	clr     PBP2
+011F	348B	clr     PBP1
+0120	340B	clr     PBP0
+				;95		SCL_PORT1 = 1;
+0121	3094	set     PA1
+				;96		SCL_PORT2 = 1;
+0122	3327	set     PG6
+				;97		GCC_DELAY(I2C_START_STOP_DELAY_TIME);
+0123	0F0A	mov     a, AH
+0124	340B	clr     PBP0
+0125	348B	clr     PBP1
+0126	350B	clr     PBP2
+0127	210F	call    L010F
+0128	350B	clr     PBP2
+0129	348B	clr     PBP1
+012A	340B	clr     PBP0
+				;98		SDA_PORT1 = 1;
+012B	3194	set     PA3
+				;99		SDA_PORT2 = 1;
+012C	33A7	set     PG7
+				;100		GCC_DELAY(I2C_DELAY_TIME - I2C_START_STOP_DELAY_TIME);
+012D	0F23	mov     a, 23H
+012E	340B	clr     PBP0
+012F	348B	clr     PBP1
+0130	350B	clr     PBP2
+0131	210F	call    L010F
+0132	350B	clr     PBP2
+0133	348B	clr     PBP1
+0134	340B	clr     PBP0
+				;101		SCL_PORT1 = 0;
+0135	3494	clr     PA1
+				;102		SCL_PORT2 = 0;
+0136	3727	clr     PG6
+				;103		GCC_DELAY(I2C_DELAY_TIME);
+0137	0F2F	mov     a, 2FH
+0138	340B	clr     PBP0
+0139	348B	clr     PBP1
+013A	350B	clr     PBP2
+013B	210D	call    L010D
+013C	350B	clr     PBP2
+013D	348B	clr     PBP1
+013E	340B	clr     PBP0
+013F	0003	ret
+				;104	}
+				;105	
+				;106	unsigned char i2c_write1(unsigned char data)
+				;107	{
+				_i2c_write1:
+				_i2c_write1:
+0740	408E	mov     data[0], a
+				;108		
+				;109		unsigned char i;
+				;110		bit ackbit = 0;
+				;111		
+				;112		SCL_PORT_ioset1 = 0;
+0741	3495	clr     PAC1
+				;113		SDA_PORT_ioset1 = 0;
+0742	3595	clr     PAC3
+0743	0F08	mov     a, 8H
+0744	4087	mov     ra14, a
+				;114		
+				;115		for(i=0;i<8;i++)
+				;116		{
+				;117			SDA_PORT1 = ((data&0x80)?1:0);
+				L0745:
+0745	580E	rla     data[0]
+0746	0E01	and     a, 1H
+0747	4088	mov     rb14, a
+0748	5108	swapa   rb14
+0749	1985	rr      ACC
+074A	0EF8	and     a, F8H
+074B	4088	mov     rb14, a
+074C	3594	clr     PA3
+074D	4708	mov     a, rb14
+074E	0594	orm     a, PA
+				;118			data <<=1;
+074F	470E	mov     a, data[0]
+0750	438E	addm    a, data[0]
+				;119			GCC_DELAY(I2C_START_STOP_DELAY_TIME);
+0751	0F0A	mov     a, AH
+0752	340B	clr     PBP0
+0753	348B	clr     PBP1
+0754	350B	clr     PBP2
+0755	210F	call    L010F
+0756	350B	clr     PBP2
+0757	348B	clr     PBP1
+0758	340B	clr     PBP0
+				;120			SCL_PORT1 = 1;
+0759	3094	set     PA1
+				;121			GCC_DELAY(I2C_DELAY_TIME);
+075A	0F2F	mov     a, 2FH
+075B	340B	clr     PBP0
+075C	348B	clr     PBP1
+075D	350B	clr     PBP2
+075E	210D	call    L010D
+075F	350B	clr     PBP2
+0760	348B	clr     PBP1
+0761	340B	clr     PBP0
+				;122			SCL_PORT1 = 0;
+0762	3494	clr     PA1
+				;123			GCC_DELAY(I2C_DELAY_TIME - I2C_START_STOP_DELAY_TIME);
+0763	0F23	mov     a, 23H
+0764	340B	clr     PBP0
+0765	348B	clr     PBP1
+0766	350B	clr     PBP2
+0767	210F	call    L010F
+				L0768:
+0768	350B	clr     PBP2
+0769	348B	clr     PBP1
+076A	340B	clr     PBP0
+076B	5787	sdz     ra14
+076C	2F45	jmp     L0745
+				;124		}
+				;125		//SDA_PORT1 = 1;
+				;126		
+				;127		
+				;128		
+				;129		SDA_PORT_ioset1 = 1;
+076D	3195	set     PAC3
+				;130		GCC_DELAY(I2C_START_STOP_DELAY_TIME);
+076E	0F0A	mov     a, AH
+076F	340B	clr     PBP0
+0770	348B	clr     PBP1
+0771	350B	clr     PBP2
+				L0772:
+0772	210F	call    L010F
+0773	350B	clr     PBP2
+0774	348B	clr     PBP1
+0775	340B	clr     PBP0
+				;131		SCL_PORT1 = 1;
+0776	3094	set     PA1
+				;132		ackbit = SDA_PORT1;
+0777	5F07	clr     ra14
+0778	3D94	sz      PA3
+				L0779:
+0779	5487	inc     ra14
+				;133		GCC_DELAY(I2C_DELAY_TIME);
+077A	0F2F	mov     a, 2FH
+077B	340B	clr     PBP0
+077C	348B	clr     PBP1
+077D	350B	clr     PBP2
+077E	210D	call    L010D
+077F	350B	clr     PBP2
+0780	348B	clr     PBP1
+0781	340B	clr     PBP0
+				;134		SCL_PORT1 = 0;
+0782	3494	clr     PA1
+				;135		GCC_DELAY(I2C_DELAY_TIME - I2C_START_STOP_DELAY_TIME);
+0783	0F23	mov     a, 23H
+0784	340B	clr     PBP0
+0785	348B	clr     PBP1
+0786	350B	clr     PBP2
+0787	210F	call    L010F
+0788	350B	clr     PBP2
+0789	348B	clr     PBP1
+078A	340B	clr     PBP0
+				;136		return ackbit;
+				;137	}
+078B	4707	mov     a, ra14
+078C	0003	ret
+				;138	unsigned char i2c_write2(unsigned char data)
+				;139	{
+				_i2c_write2:
+				_i2c_write2:
+017B	4097	mov     data[0], a
+				;140		
+				;141		unsigned char i;
+				;142		bit ackbit = 0;
+				;143		
+				;144		SCL_PORT_ioset2 = 0;
+017C	3728	clr     PGC6
+				;145		SDA_PORT_ioset2 = 0;
+017D	37A8	clr     PGC7
+017E	0F08	mov     a, 8H
+017F	4080	mov     ra, a
+				;146		
+				;147		for(i=0;i<8;i++)
+				;148		{
+				;149			SDA_PORT2 = ((data&0x80)?1:0);
+				L0180:
+0180	4717	mov     a, data[0]
+0181	0E80	and     a, 80H
+0182	4081	mov     rb, a
+0183	37A7	clr     PG7
+0184	4701	mov     a, rb
+0185	05A7	orm     a, PG
+				;150			data <<=1;
+0186	4717	mov     a, data[0]
+0187	4397	addm    a, data[0]
+				;151			GCC_DELAY(I2C_START_STOP_DELAY_TIME);
+0188	0F0A	mov     a, AH
+0189	340B	clr     PBP0
+018A	348B	clr     PBP1
+018B	350B	clr     PBP2
+018C	210F	call    L010F
+018D	350B	clr     PBP2
+018E	348B	clr     PBP1
+018F	340B	clr     PBP0
+				;152			SCL_PORT2 = 1;
+0190	3327	set     PG6
+				;153			GCC_DELAY(I2C_DELAY_TIME);
+0191	0F2F	mov     a, 2FH
+0192	340B	clr     PBP0
+0193	348B	clr     PBP1
+0194	350B	clr     PBP2
+0195	210D	call    L010D
+0196	350B	clr     PBP2
+0197	348B	clr     PBP1
+0198	340B	clr     PBP0
+				;154			SCL_PORT2 = 0;
+0199	3727	clr     PG6
+				;155			GCC_DELAY(I2C_DELAY_TIME - I2C_START_STOP_DELAY_TIME);
+019A	0F23	mov     a, 23H
+019B	340B	clr     PBP0
+019C	348B	clr     PBP1
+019D	350B	clr     PBP2
+019E	210F	call    L010F
+019F	350B	clr     PBP2
+01A0	348B	clr     PBP1
+01A1	340B	clr     PBP0
+01A2	5780	sdz     ra
+01A3	2980	jmp     L0180
+				;156		}
+				;157		//SDA_PORT2 = 1;
+				;158		
+				;159		
+				;160		
+				;161		SDA_PORT_ioset2 = 1;
+01A4	33A8	set     PGC7
+				;162		GCC_DELAY(I2C_START_STOP_DELAY_TIME);
+01A5	0F0A	mov     a, AH
+01A6	340B	clr     PBP0
+01A7	348B	clr     PBP1
+01A8	350B	clr     PBP2
+01A9	210F	call    L010F
+01AA	350B	clr     PBP2
+01AB	348B	clr     PBP1
+01AC	340B	clr     PBP0
+				;163		SCL_PORT2 = 1;
+01AD	3327	set     PG6
+				;164		ackbit = SDA_PORT2;
+01AE	1827	rla     PG
+01AF	0E01	and     a, 1H
+01B0	4080	mov     ra, a
+				;165		GCC_DELAY(I2C_DELAY_TIME);
+01B1	0F2F	mov     a, 2FH
+01B2	340B	clr     PBP0
+01B3	348B	clr     PBP1
+01B4	350B	clr     PBP2
+01B5	210D	call    L010D
+01B6	350B	clr     PBP2
+01B7	348B	clr     PBP1
+01B8	340B	clr     PBP0
+				;166		SCL_PORT2 = 0;
+01B9	3727	clr     PG6
+				;167		GCC_DELAY(I2C_DELAY_TIME - I2C_START_STOP_DELAY_TIME);
+01BA	0F23	mov     a, 23H
+01BB	340B	clr     PBP0
+01BC	348B	clr     PBP1
+01BD	350B	clr     PBP2
+01BE	210F	call    L010F
+01BF	350B	clr     PBP2
+01C0	348B	clr     PBP1
+01C1	340B	clr     PBP0
+				;168		return ackbit;
+				;169	}
+01C2	4700	mov     a, ra
+01C3	0003	ret
+				;170	
+				;171	unsigned char i2c_read1(unsigned char send_ack)
+				;172	{
+				_i2c_read1:
+				_i2c_read1:
+0705	408E	mov     send_ack[0], a
+				;173		SDA_PORT_ioset1 = 1;
+0706	3195	set     PAC3
+				;174		SCL_PORT_ioset1 = 0;
+0707	3495	clr     PAC1
+0708	0F08	mov     a, 8H
+0709	4088	mov     rb14, a
+				;175		
+				;176		unsigned char i,data;
+				;177		data = 0x00;	
+070A	5F07	clr     ra14
+				;178		for(i=0;i<8;i++)
+				;179		{
+				;180			
+				;181		
+				;182			SCL_PORT1 = 1;
+				L070B:
+070B	3094	set     PA1
+				;183			GCC_DELAY(I2C_DELAY_TIME);
+070C	0F2F	mov     a, 2FH
+070D	340B	clr     PBP0
+070E	348B	clr     PBP1
+070F	350B	clr     PBP2
+0710	210D	call    L010D
+0711	350B	clr     PBP2
+0712	348B	clr     PBP1
+0713	340B	clr     PBP0
+				;184			
+				;185			data <<= 1;
+0714	4707	mov     a, ra14
+0715	4387	addm    a, ra14
+				;186			data |= SDA_PORT1;
+0716	5F09	clr     rc14
+0717	3D94	sz      PA3
+0718	5489	inc     rc14
+0719	4709	mov     a, rc14
+071A	4587	orm     a, ra14
+				;187			
+				;188			
+				;189			SCL_PORT1 = 0;
+071B	3494	clr     PA1
+				;190			GCC_DELAY(I2C_DELAY_TIME);
+071C	0F2F	mov     a, 2FH
+071D	340B	clr     PBP0
+071E	348B	clr     PBP1
+071F	350B	clr     PBP2
+				L0720:
+0720	210D	call    L010D
+0721	350B	clr     PBP2
+0722	348B	clr     PBP1
+0723	340B	clr     PBP0
+0724	5788	sdz     rb14
+0725	2F0B	jmp     L070B
+				;191		}
+				;192		
+				;193		SDA_PORT_ioset1 = 0;
+0726	3595	clr     PAC3
+				;194		
+				;195		if(send_ack)
+0727	5E0E	snz     send_ack[0]
+0728	2F2B	jmp     L072B
+				;196		{
+				;197			SDA_PORT1 = 0;
+0729	3594	clr     PA3
+072A	2F2C	jmp     L072C
+				;198		}
+				;199		else
+				;200		{
+				;201			SDA_PORT1 = 1;
+				L072B:
+072B	3194	set     PA3
+				;202		}
+				;203		
+				;204		SCL_PORT1 = 1;
+				L072C:
+072C	3094	set     PA1
+				;205		GCC_DELAY(I2C_DELAY_TIME);
+072D	0F2F	mov     a, 2FH
+072E	340B	clr     PBP0
+072F	348B	clr     PBP1
+0730	350B	clr     PBP2
+0731	210D	call    L010D
+0732	350B	clr     PBP2
+0733	348B	clr     PBP1
+0734	340B	clr     PBP0
+				;206		SCL_PORT1 = 0;
+0735	3494	clr     PA1
+				;207		GCC_DELAY(I2C_DELAY_TIME);
+0736	0F2F	mov     a, 2FH
+0737	340B	clr     PBP0
+0738	348B	clr     PBP1
+0739	350B	clr     PBP2
+073A	210D	call    L010D
+073B	350B	clr     PBP2
+073C	348B	clr     PBP1
+073D	340B	clr     PBP0
+				;208		return data;
+				;209	}
+073E	4707	mov     a, ra14
+073F	0003	ret
+				;210	unsigned char i2c_read2(unsigned char send_ack)
+				;211	{
+				_i2c_read2:
+				_i2c_read2:
+0140	4097	mov     send_ack[0], a
+				;212		SDA_PORT_ioset2 = 1;
+0141	33A8	set     PGC7
+				;213		SCL_PORT_ioset2 = 0;
+0142	3728	clr     PGC6
+0143	0F08	mov     a, 8H
+0144	4081	mov     rb, a
+				;214		
+				;215		unsigned char i,data;
+				;216		data = 0x00;	
+0145	5F00	clr     ra
+				;217		for(i=0;i<8;i++)
+				;218		{
+				;219			
+				;220		
+				;221			SCL_PORT2 = 1;
+				L0146:
+0146	3327	set     PG6
+				;222			GCC_DELAY(I2C_DELAY_TIME);
+0147	0F2F	mov     a, 2FH
+0148	340B	clr     PBP0
+0149	348B	clr     PBP1
+014A	350B	clr     PBP2
+014B	210D	call    L010D
+014C	350B	clr     PBP2
+014D	348B	clr     PBP1
+014E	340B	clr     PBP0
+				;223			
+				;224			data <<= 1;
+014F	4700	mov     a, ra
+0150	4380	addm    a, ra
+				;225			data |= SDA_PORT2;
+0151	1827	rla     PG
+0152	0E01	and     a, 1H
+0153	4082	mov     rc, a
+0154	4702	mov     a, rc
+0155	4580	orm     a, ra
+				;226			
+				;227			
+				;228			SCL_PORT2 = 0;
+0156	3727	clr     PG6
+				;229			GCC_DELAY(I2C_DELAY_TIME);
+0157	0F2F	mov     a, 2FH
+0158	340B	clr     PBP0
+0159	348B	clr     PBP1
+015A	350B	clr     PBP2
+015B	210D	call    L010D
+015C	350B	clr     PBP2
+015D	348B	clr     PBP1
+015E	340B	clr     PBP0
+015F	5781	sdz     rb
+0160	2946	jmp     L0146
+				;230		}
+				;231		
+				;232		SDA_PORT_ioset2 = 0;
+0161	37A8	clr     PGC7
+				;233		
+				;234		if(send_ack)
+0162	5E17	snz     send_ack[0]
+0163	2966	jmp     L0166
+				;235		{
+				;236			SDA_PORT2 = 0;
+0164	37A7	clr     PG7
+0165	2967	jmp     L0167
+				;237		}
+				;238		else
+				;239		{
+				;240			SDA_PORT2 = 1;
+				L0166:
+0166	33A7	set     PG7
+				;241		}
+				;242		
+				;243		SCL_PORT2 = 1;
+				L0167:
+0167	3327	set     PG6
+				;244		GCC_DELAY(I2C_DELAY_TIME);
+0168	0F2F	mov     a, 2FH
+0169	340B	clr     PBP0
+016A	348B	clr     PBP1
+016B	350B	clr     PBP2
+016C	210D	call    L010D
+016D	350B	clr     PBP2
+016E	348B	clr     PBP1
+016F	340B	clr     PBP0
+				;245		SCL_PORT2 = 0;
+0170	3727	clr     PG6
+				;246		GCC_DELAY(I2C_DELAY_TIME);
+0171	0F2F	mov     a, 2FH
+0172	340B	clr     PBP0
+0173	348B	clr     PBP1
+0174	350B	clr     PBP2
+0175	210D	call    L010D
+0176	350B	clr     PBP2
+0177	348B	clr     PBP1
+0178	340B	clr     PBP0
+				;247		return data;
+				;248	}		
+0179	4700	mov     a, ra
+017A	0003	ret
+				;249	
+				;250	void i2c_writeData_ra1(unsigned char addr, unsigned char Reg, unsigned char data)
+				;251	{
+				_i2c_writeData_ra1:
+				_i2c_writeData_ra1:
+07A3	4091	mov     addr[0], a
+				;252		i2c_init();
+07A4	21E9	call    _i2c_init
+				;253		i2c_start();
+07A5	21C4	call    _i2c_start
+				;254		i2c_write1(addr<<1);
+07A6	4711	mov     a, addr[0]
+07A7	4311	add     a, addr[0]
+07A8	4087	mov     ra14, a
+07A9	4707	mov     a, ra14
+07AA	2740	call    _i2c_write1
+				;255		i2c_write1(Reg);
+07AB	470F	mov     a, Reg[0]
+07AC	2740	call    _i2c_write1
+				;256		i2c_write1(data);
+07AD	4710	mov     a, data[0]
+07AE	4087	mov     ra14, a
+07AF	4707	mov     a, ra14
+07B0	2740	call    _i2c_write1
+				;257		i2c_stop();
+07B1	2113	call    _i2c_stop
+07B2	0003	ret
+				;258	}
+				;259	
+				;260	unsigned char i2c_readData(unsigned char addr, unsigned char Reg)
+				;261	{
+				_i2c_readData:
+				_i2c_readData:
+078D	4087	mov     ra14, a
+				;262		unsigned char addrr,data;
+				;263		addrr = 0x00;
+				;264		addr <<= 1;
+078E	4707	mov     a, ra14
+078F	4307	add     a, ra14
+0790	4091	mov     data[0], a
+				;265		addrr = addr;
+				;266		addrr |= 0x01;
+0798	4711	mov     a, data[0]
+0799	4087	mov     ra14, a
+079A	7007	set     ra14.0
+				;267		i2c_init();
+0791	21E9	call    _i2c_init
+				;268		i2c_start();
+0792	21C4	call    _i2c_start
+				;269		i2c_write1(addr);
+0793	4711	mov     a, data[0]
+0794	2740	call    _i2c_write1
+				;270		i2c_write1(Reg);
+0795	470F	mov     a, Reg[0]
+0796	2740	call    _i2c_write1
+				;271		i2c_start();
+0797	21C4	call    _i2c_start
+				;272		i2c_write1(addrr);
+079B	4707	mov     a, ra14
+079C	2740	call    _i2c_write1
+				;273		
+				;274		data = i2c_read1(0);
+079D	0F00	mov     a, 0H
+079E	2705	call    _i2c_read1
+079F	4091	mov     data[0], a
+				;275		
+				;276		i2c_stop();
+07A0	2113	call    _i2c_stop
+				;277		return data;
+				;278	}
+07A1	4711	mov     a, data[0]
+07A2	0003	ret
+				;279	
+				;280	unsigned char *i2c_EEPROM_readData_1(unsigned char addr)
+				;281	{
+				_i2c_EEPROM_readData_1:
+				_i2c_EEPROM_readData_1:
+02BF	4080	mov     ra, a
+02C0	40AC	mov     addr[0], a
+				;282		unsigned char addrr,i=0,data[20];
+02CC	5F2D	clr     i[0]
+				;283		unsigned int address=0x0020;
+02C9	0F20	mov     a, 20H
+02CA	40AE	mov     address[0], a
+02CB	5F2F	clr     address[1]
+				;284		addrr = 0x00;
+				;285		addr <<= 1;
+02C1	4700	mov     a, ra
+02C2	4300	add     a, ra
+02C3	40B2	mov     address[4], a
+				;286		addrr = addr;
+				;287		addrr |= 0x01;
+02C4	4732	mov     a, address[4]
+02C5	4080	mov     ra, a
+02C6	7000	set     ra.0
+02C7	4700	mov     a, ra
+02C8	40B3	mov     addrr[0], a
+				;288		while(1)
+				;289		{
+				;290			i2c_init();
+				L02CD:
+02CD	21E9	call    _i2c_init
+				;291			i2c_start();
+02CE	21C4	call    _i2c_start
+				;292			i2c_write2(addr);
+02CF	4732	mov     a, address[4]
+02D0	217B	call    _i2c_write2
+				;293			i2c_write2((unsigned char)(address>>8));
+02D1	472F	mov     a, address[1]
+02D2	217B	call    _i2c_write2
+02D3	472D	mov     a, i[0]
+02D4	0B20	add     a, 20H
+02D5	4080	mov     ra, a
+				;294			i2c_write2((unsigned char)address);
+02D6	4700	mov     a, ra
+02D7	217B	call    _i2c_write2
+				;295			i2c_start();
+02D8	21C4	call    _i2c_start
+				;296			i2c_write2(addrr);
+02D9	4733	mov     a, addrr[0]
+02DA	217B	call    _i2c_write2
+				;297			data[i]= i2c_read2(0);
+02DB	472D	mov     a, i[0]
+02DC	40B0	mov     address[2], a
+02DD	5F31	clr     address[3]
+02DE	0F00	mov     a, 0H
+02DF	2140	call    _i2c_read2
+02E0	4080	mov     ra, a
+02E1	0F98	mov     a, 98H
+02E2	4330	add     a, address[2]
+02E3	0083	mov     MP1L, a
+02E4	0F00	mov     a, 0H
+02E5	5331	adc     a, address[3]
+02E6	0084	mov     MP1H, a
+02E7	4700	mov     a, ra
+02E8	0082	mov     [02H], a
+				;298			i2c_stop();
+02E9	2113	call    _i2c_stop
+				;299			GCC_DELAY(5000);
+02EA	0F04	mov     a, 4H
+02EB	4097	mov     data, a
+02EC	0FDD	mov     a, DDH
+02ED	340B	clr     PBP0
+02EE	348B	clr     PBP1
+02EF	350B	clr     PBP2
+02F0	20FF	call    L00FF
+02F1	350B	clr     PBP2
+02F2	348B	clr     PBP1
+02F3	340B	clr     PBP0
+				;300			if(data[i]=='@')
+02F4	0F98	mov     a, 98H
+02F5	4330	add     a, address[2]
+02F6	0083	mov     MP1L, a
+02F7	0F00	mov     a, 0H
+02F8	5331	adc     a, address[3]
+02F9	0084	mov     MP1H, a
+02FA	2006	call    L0006
+02FB	4080	mov     ra, a
+02FC	4700	mov     a, ra
+02FD	0A40	sub     a, 40H
+02FE	3D0A	sz      Z
+02FF	2B05	jmp     L0305
+				;301			{
+				;302				break;
+				;303			}
+				;304			i++;
+0300	54AD	inc     i[0]
+				;305			address+=1;
+0301	54AE	inc     address[0]
+0302	3D0A	sz      Z
+0303	54AF	inc     address[1]
+				;306		}
+0304	2ACD	jmp     L02CD
+				;307		return data;
+				;308	
+				;309	}
+				L0305:
+0305	0F98	mov     a, 98H
+0306	4080	mov     ra, a
+0307	0F00	mov     a, 0H
+0308	4081	mov     rb, a
+0309	0003	ret
+				;310	
+				;311	void i2c_EEPROM_WriteData_1(unsigned char addr, unsigned char data[])
+				;312	{
+				_i2c_EEPROM_WriteData_1:
+				_i2c_EEPROM_WriteData_1:
+030A	4080	mov     ra, a
+030B	409B	mov     addr[0], a
+				;313		unsigned char i;
+				;314		unsigned address=0x0020;
+030F	0F20	mov     a, 20H
+0310	409D	mov     address[0], a
+0311	5F1E	clr     address[1]
+				;315		addr <<= 1;
+030C	4700	mov     a, ra
+030D	4300	add     a, ra
+030E	40A1	mov     data[9], a
+				;316		for(i=0;i<strlen(data);i++)
+0312	5F1C	clr     i[0]
+0313	2B36	jmp     L0336
+0335	549C	inc     i[0]
+				L0336:
+0336	4719	mov     a, data[0]
+0337	4097	mov     data, a
+0338	471A	mov     a, data[1]
+0339	4098	mov     data, a
+033A	2241	call    L0241
+033B	471C	mov     a, i[0]
+033C	409F	mov     data[7], a
+033D	5F20	clr     data[8]
+033E	471F	mov     a, data[7]
+033F	4200	sub     a, ra
+0340	4720	mov     a, data[8]
+0341	5201	sbc     a, rb
+0342	3F8A	sz      SC
+0343	2B14	jmp     L0314
+0344	0003	ret
+				;317		{
+				;318		i2c_init();
+				L0314:
+0314	21E9	call    _i2c_init
+				;319		i2c_start();
+0315	21C4	call    _i2c_start
+				;320		i2c_write2(addr);
+0316	4721	mov     a, data[9]
+0317	217B	call    _i2c_write2
+				;321		i2c_write2(address>>8);
+0318	471E	mov     a, address[1]
+0319	217B	call    _i2c_write2
+031A	471C	mov     a, i[0]
+031B	0B20	add     a, 20H
+031C	4080	mov     ra, a
+				;322		i2c_write2((unsigned char)address);
+031D	4700	mov     a, ra
+031E	217B	call    _i2c_write2
+				;323		i2c_write2(data[i]);
+031F	471F	mov     a, data[7]
+0320	4319	add     a, data[0]
+0321	0083	mov     MP1L, a
+0322	4720	mov     a, data[8]
+0323	531A	adc     a, data[1]
+0324	0084	mov     MP1H, a
+0325	2006	call    L0006
+0326	217B	call    _i2c_write2
+				;324		i2c_stop();
+0327	2113	call    _i2c_stop
+				;325		GCC_DELAY(10000);
+0328	0F09	mov     a, 9H
+0329	4097	mov     data, a
+032A	0FBC	mov     a, BCH
+032B	340B	clr     PBP0
+032C	348B	clr     PBP1
+032D	350B	clr     PBP2
+032E	20FD	call    L00FD
+032F	350B	clr     PBP2
+0330	348B	clr     PBP1
+0331	340B	clr     PBP0
+				;326		address+=1;
+0332	549D	inc     address[0]
+0333	3D0A	sz      Z
+0334	549E	inc     address[1]
+				;327		}
+				;328	}
+				;329	unsigned char *i2c_EEPROM_readData_2(unsigned char addr)
+				;330	{
+				_i2c_EEPROM_readData_2:
+				_i2c_EEPROM_readData_2:
+01F6	4080	mov     ra, a
+01F7	40AC	mov     addr[0], a
+				;331		unsigned char addrr,i=0,data[20];
+0203	5F2D	clr     i[0]
+				;332		unsigned int address=0X0080;
+0200	0F80	mov     a, 80H
+0201	40AE	mov     address[0], a
+0202	5F2F	clr     address[1]
+				;333		addrr = 0x00;
+				;334		addr <<= 1;
+01F8	4700	mov     a, ra
+01F9	4300	add     a, ra
+01FA	40B2	mov     address[4], a
+				;335		addrr = addr;
+				;336		addrr |= 0x01;
+01FB	4732	mov     a, address[4]
+01FC	4080	mov     ra, a
+01FD	7000	set     ra.0
+01FE	4700	mov     a, ra
+01FF	40B3	mov     addrr[0], a
+				;337		while(1)
+				;338		{
+				;339			i2c_init();
+				L0204:
+0204	21E9	call    _i2c_init
+				;340			i2c_start();
+0205	21C4	call    _i2c_start
+				;341			i2c_write2(addr);
+0206	4732	mov     a, address[4]
+0207	217B	call    _i2c_write2
+				;342			i2c_write2(address>>8);
+0208	472F	mov     a, address[1]
+0209	217B	call    _i2c_write2
+020A	472D	mov     a, i[0]
+020B	0B80	add     a, 80H
+020C	4080	mov     ra, a
+				;343			i2c_write2((unsigned char)address);
+020D	4700	mov     a, ra
+020E	217B	call    _i2c_write2
+				;344			i2c_start();
+020F	21C4	call    _i2c_start
+				;345			i2c_write2(addrr);
+0210	4733	mov     a, addrr[0]
+0211	217B	call    _i2c_write2
+				;346			data[i]= i2c_read2(0);
+0212	472D	mov     a, i[0]
+0213	40B0	mov     address[2], a
+0214	5F31	clr     address[3]
+0215	0F00	mov     a, 0H
+0216	2140	call    _i2c_read2
+0217	4080	mov     ra, a
+0218	0F98	mov     a, 98H
+0219	4330	add     a, address[2]
+021A	0083	mov     MP1L, a
+021B	0F00	mov     a, 0H
+021C	5331	adc     a, address[3]
+021D	0084	mov     MP1H, a
+021E	4700	mov     a, ra
+021F	0082	mov     [02H], a
+				;347			i2c_stop();
+0220	2113	call    _i2c_stop
+				;348			GCC_DELAY(5000);
+0221	0F04	mov     a, 4H
+0222	4097	mov     data, a
+0223	0FDD	mov     a, DDH
+0224	340B	clr     PBP0
+0225	348B	clr     PBP1
+0226	350B	clr     PBP2
+0227	20FF	call    L00FF
+0228	350B	clr     PBP2
+0229	348B	clr     PBP1
+022A	340B	clr     PBP0
+				;349			if(data[i]=='!')
+022B	0F98	mov     a, 98H
+				L022C:
+022C	4330	add     a, address[2]
+022D	0083	mov     MP1L, a
+022E	0F00	mov     a, 0H
+022F	5331	adc     a, address[3]
+0230	0084	mov     MP1H, a
+0231	2006	call    L0006
+0232	4080	mov     ra, a
+0233	4700	mov     a, ra
+0234	0A21	sub     a, 21H
+0235	3D0A	sz      Z
+0236	2A3C	jmp     L023C
+				;350			{
+				;351				break;
+				;352			}
+				;353			i++;
+0237	54AD	inc     i[0]
+				;354			address+=1;
+0238	54AE	inc     address[0]
+0239	3D0A	sz      Z
+023A	54AF	inc     address[1]
+				;355		}
+023B	2A04	jmp     L0204
+				;356		return data;
+				;357	
+				;358	}
+				L023C:
+023C	0F98	mov     a, 98H
+023D	4080	mov     ra, a
+023E	0F00	mov     a, 0H
+023F	4081	mov     rb, a
+0240	0003	ret
+				L0241:
+0241	4717	mov     a, data
+0242	4081	mov     rb, a
+0243	4718	mov     a, data[0]
+0244	4082	mov     rc, a
+				L0245:
+0245	4701	mov     a, rb
+0246	0083	mov     MP1L, a
+0247	4702	mov     a, rc
+0248	0084	mov     MP1H, a
+0249	2006	call    L0006
+024A	4080	mov     ra, a
+024B	5481	inc     rb
+024C	3D0A	sz      Z
+024D	5482	inc     rc
+024E	5080	sz      ra
+024F	2A45	jmp     L0245
+				L0250:
+0250	4717	mov     a, data
+0251	4083	mov     rd, a
+0252	4718	mov     a, data[0]
+0253	4084	mov     re, a
+0254	4183	cpl     rd
+0255	4184	cpl     re
+0256	4703	mov     a, rd
+0257	4381	addm    a, rb
+0258	4704	mov     a, re
+0259	5382	adcm    a, rc
+025A	4701	mov     a, rb
+025B	4080	mov     ra, a
+025C	4702	mov     a, rc
+025D	4081	mov     rb, a
+025E	0003	ret
+				;359	
+				;360	void i2c_EEPROM_WriteData_2(unsigned char addr, unsigned char data[])
+				;361	{
+				_i2c_EEPROM_WriteData_2:
+				_i2c_EEPROM_WriteData_2:
+025F	4080	mov     ra, a
+0260	409B	mov     addr[0], a
+				;362		unsigned char i;
+				;363		unsigned int address=0X0080;
+0264	0F80	mov     a, 80H
+0265	409D	mov     address[0], a
+0266	5F1E	clr     address[1]
+				;364		addr <<= 1;
+0261	4700	mov     a, ra
+0262	4300	add     a, ra
+0263	40A1	mov     data[9], a
+				;365		for(i=0;i<strlen(data);i++)
+0267	5F1C	clr     i[0]
+0268	2A8B	jmp     L028B
+028A	549C	inc     i[0]
+				L028B:
+028B	4719	mov     a, data[0]
+028C	4097	mov     data, a
+028D	471A	mov     a, data[1]
+028E	4098	mov     data, a
+028F	2241	call    L0241
+0290	471C	mov     a, i[0]
+0291	409F	mov     data[7], a
+0292	5F20	clr     data[8]
+0293	471F	mov     a, data[7]
+0294	4200	sub     a, ra
+0295	4720	mov     a, data[8]
+0296	5201	sbc     a, rb
+0297	3F8A	sz      SC
+0298	2A69	jmp     L0269
+0299	0003	ret
+				;366		{
+				;367		i2c_init();
+				L0269:
+0269	21E9	call    _i2c_init
+				;368		i2c_start();
+026A	21C4	call    _i2c_start
+				;369		i2c_write2(addr);
+026B	4721	mov     a, data[9]
+026C	217B	call    _i2c_write2
+				;370		i2c_write2(address>>8);
+				L026D:
+026D	471E	mov     a, address[1]
+026E	217B	call    _i2c_write2
+026F	471C	mov     a, i[0]
+0270	0B80	add     a, 80H
+0271	4080	mov     ra, a
+				;371		i2c_write2((unsigned char)address);
+0272	4700	mov     a, ra
+0273	217B	call    _i2c_write2
+				;372		i2c_write2(data[i]);
+0274	471F	mov     a, data[7]
+0275	4319	add     a, data[0]
+0276	0083	mov     MP1L, a
+0277	4720	mov     a, data[8]
+0278	531A	adc     a, data[1]
+0279	0084	mov     MP1H, a
+027A	2006	call    L0006
+027B	217B	call    _i2c_write2
+				;373		i2c_stop();
+027C	2113	call    _i2c_stop
+				;374		GCC_DELAY(10000);
+027D	0F09	mov     a, 9H
+027E	4097	mov     data, a
+027F	0FBC	mov     a, BCH
+0280	340B	clr     PBP0
+0281	348B	clr     PBP1
+0282	350B	clr     PBP2
+0283	20FD	call    L00FD
+0284	350B	clr     PBP2
+0285	348B	clr     PBP1
+0286	340B	clr     PBP0
+				;375		address+=1;
+0287	549D	inc     address[0]
+0288	3D0A	sz      Z
+0289	549E	inc     address[1]
+				;376		}
+				;377	}
+				;378	void delay(int time)
+				;379	{
+				;380		int x=time;
+				;381		while(x--)
+				_delay:
+				_delay:
+0699	2E9B	jmp     _L36
+				_L36:
+069B	0FFF	mov     a, FFH
+069C	438E	addm    a, time[0]
+069D	0FFF	mov     a, FFH
+069E	538F	adcm    a, time[1]
+069F	470E	mov     a, time[0]
+06A0	460F	and     a, time[1]
+06A1	0B01	add     a, 1H
+06A2	380A	snz     C
+06A3	2E9A	jmp     _L37
+06A4	0003	ret
+				;382		{
+				;383			GCC_NOP();
+				_L37:
+069A	0000	nop
+				;384		}
+				;385	}
+				;386	void Bluetoothsend(unsigned char data[],int size){
+				;387		for(i=0;i<size;i++)
+				_Bluetoothsend:
+				_Bluetoothsend:
+0345	5F5E	clr     i[0]
+0346	5F5F	clr     i[1]
+0347	2B5F	jmp     _L39
+0359	0F01	mov     a, 1H
+035A	4301	add     a, rb
+035B	40DE	mov     i[0], a
+035C	0F00	mov     a, 0H
+035D	5302	adc     a, rc
+035E	40DF	mov     i[1], a
+				_L39:
+035F	475E	mov     a, i[0]
+0360	4081	mov     rb, a
+0361	475F	mov     a, i[1]
+0362	4082	mov     rc, a
+0363	4701	mov     a, rb
+0364	4219	sub     a, size[0]
+0365	4702	mov     a, rc
+0366	521A	sbc     a, size[1]
+0367	3F8A	sz      SC
+0368	2B48	jmp     _L40
+0369	0003	ret
+				;388		{	GCC_DELAY(250);
+				_L40:
+0348	0F3C	mov     a, 3CH
+0349	340B	clr     PBP0
+034A	348B	clr     PBP1
+034B	350B	clr     PBP2
+034C	210F	call    L010F
+034D	350B	clr     PBP2
+034E	348B	clr     PBP1
+034F	340B	clr     PBP0
+				;389			_txr_rxr0=data[i];
+0350	4701	mov     a, rb
+0351	4317	add     a, data[0]
+0352	0083	mov     MP1L, a
+0353	4702	mov     a, rc
+				L0354:
+0354	5318	adc     a, data[1]
+0355	0084	mov     MP1H, a
+0356	2006	call    L0006
+0357	8093	lmov    TXR_RXR0, a
+				;390		}
+				;391	}
+				;392	void Bluetoothsend1(unsigned char data[],int size){
+				;393		for(i=0;i<size;i++)
+				_Bluetoothsend1:
+				_Bluetoothsend1:
+029A	5F5E	clr     i[0]
+029B	5F5F	clr     i[1]
+029C	2AB4	jmp     _L42
+02AE	0F01	mov     a, 1H
+02AF	4301	add     a, rb
+02B0	40DE	mov     i[0], a
+02B1	0F00	mov     a, 0H
+02B2	5302	adc     a, rc
+02B3	40DF	mov     i[1], a
+				_L42:
+02B4	475E	mov     a, i[0]
+02B5	4081	mov     rb, a
+02B6	475F	mov     a, i[1]
+02B7	4082	mov     rc, a
+02B8	4701	mov     a, rb
+02B9	4219	sub     a, size[0]
+02BA	4702	mov     a, rc
+02BB	521A	sbc     a, size[1]
+02BC	3F8A	sz      SC
+02BD	2A9D	jmp     _L43
+02BE	0003	ret
+				;394		{	GCC_DELAY(300);
+				_L43:
+029D	0F48	mov     a, 48H
+029E	340B	clr     PBP0
+029F	348B	clr     PBP1
+02A0	350B	clr     PBP2
+02A1	210D	call    L010D
+02A2	350B	clr     PBP2
+02A3	348B	clr     PBP1
+02A4	340B	clr     PBP0
+				;395			_txr_rxr0=data[i];
+02A5	4701	mov     a, rb
+02A6	4317	add     a, data[0]
+02A7	0083	mov     MP1L, a
+02A8	4702	mov     a, rc
+02A9	5318	adc     a, data[1]
+02AA	0084	mov     MP1H, a
+02AB	2006	call    L0006
+02AC	8093	lmov    TXR_RXR0, a
+				;396		}
+				;397	}
+				;398	void IFTTTSend(unsigned char data[],int size)
+				;399	{
+				;400		for(i=0;i<size;i++)
+				_IFTTTSend:
+				_IFTTTSend:
+06A5	5F5E	clr     i[0]
+06A6	5F5F	clr     i[1]
+06A7	2EB9	jmp     _L45
+06B6	54DE	inc     i[0]
+06B7	3D0A	sz      Z
+06B8	54DF	inc     i[1]
+				_L45:
+06B9	475E	mov     a, i[0]
+06BA	4088	mov     rb14, a
+06BB	475F	mov     a, i[1]
+06BC	4089	mov     rc14, a
+06BD	4708	mov     a, rb14
+06BE	4212	sub     a, size[0]
+06BF	4709	mov     a, rc14
+06C0	5213	sbc     a, size[1]
+06C1	3F8A	sz      SC
+06C2	2EA8	jmp     _L46
+06C3	0003	ret
+				;401		{	
+				;402			_txr_rxr1=data[i];
+				_L46:
+06A8	4708	mov     a, rb14
+06A9	4310	add     a, data[0]
+06AA	0083	mov     MP1L, a
+06AB	4709	mov     a, rc14
+06AC	5311	adc     a, data[1]
+06AD	0084	mov     MP1H, a
+06AE	2006	call    L0006
+06AF	8098	lmov    TXR_RXR1, a
+				;403			delay(1000);
+06B1	0FE8	mov     a, E8H
+06B2	408E	mov     time, a
+06B3	0F03	mov     a, 3H
+06B4	408F	mov     Reg, a
+06B5	2699	call    _delay
+				;404		}
+				;405	}
+				;406	void IFTTT()
+				;407	{
+				_IFTTT:
+				_IFTTT:
+06C4	0F03	mov     a, 3H
+06C5	4094	mov     _IFTTT_2, a
+				;408		unsigned char j=0;
+				;409		for(j=0;j<3;j++)
+				;410		{
+				;411			IFTTTSend("AT\r\n",4);
+				_L49:
+06C6	0F04	mov     a, 4H
+06C7	4092	mov     size, a
+06C8	5F13	clr     size[1]
+06C9	0F26	mov     a, 26H
+06CA	4090	mov     data, a
+06CB	0F81	mov     a, 81H
+06CC	4091	mov     data, a
+				@dummy .SECTION 'CODE'
+06CD	26A5	call    _IFTTTSend
+				;412			delay(10000);
+06CE	0F10	mov     a, 10H
+06CF	408E	mov     time, a
+06D0	0F27	mov     a, 27H
+06D1	408F	mov     Reg, a
+06D2	2699	call    _delay
+				;413			IFTTTSend("AT+NETOPEN\r\n",12);
+06D3	0F0C	mov     a, CH
+06D4	4092	mov     size, a
+06D5	5F13	clr     size[1]
+06D6	0F2B	mov     a, 2BH
+06D7	4090	mov     data, a
+06D8	0F81	mov     a, 81H
+06D9	4091	mov     data, a
+06DA	26A5	call    _IFTTTSend
+				;414			delay(10000);
+06DB	0F10	mov     a, 10H
+06DC	408E	mov     time, a
+06DD	0F27	mov     a, 27H
+06DE	408F	mov     Reg, a
+06DF	2699	call    _delay
+				;415			IFTTTSend("AT+CIPOPEN=1,\"TCP\",\"maker.ifttt.com\",80\r\n",41);
+06E0	0F29	mov     a, 29H
+06E1	4092	mov     size, a
+06E2	5F13	clr     size[1]
+06E3	0F38	mov     a, 38H
+06E4	4090	mov     data, a
+06E5	0F81	mov     a, 81H
+06E6	4091	mov     data, a
+06E7	26A5	call    _IFTTTSend
+				;416			delay(10000);
+06E8	0F10	mov     a, 10H
+06E9	408E	mov     time, a
+06EA	0F27	mov     a, 27H
+06EB	408F	mov     Reg, a
+06EC	2699	call    _delay
+				;417			IFTTTSend("AT+CIPSEND=1,108\r\n",18);
+06ED	0F12	mov     a, 12H
+06EE	4092	mov     size, a
+06EF	5F13	clr     size[1]
+06F0	0F62	mov     a, 62H
+06F1	4090	mov     data, a
+06F2	0F81	mov     a, 81H
+06F3	4091	mov     data, a
+06F4	26A5	call    _IFTTTSend
+				;418			delay(10000);
+06F5	0F10	mov     a, 10H
+06F6	408E	mov     time, a
+06F7	0F27	mov     a, 27H
+06F8	408F	mov     Reg, a
+06F9	2699	call    _delay
+				;419			IFTTTSend("GET /trigger/Notice/with/key/oAUGnu5q_TRbdhVBHDYcB5RPz0OgulHWQ0UUTiKH0Hb HTTP/1.1\r\nHost: maker.ifttt.com\r\n\r\n",108);
+06FA	0F6C	mov     a, 6CH
+06FB	4092	mov     size, a
+06FC	5F13	clr     size[1]
+06FD	0F75	mov     a, 75H
+06FE	4090	mov     data, a
+06FF	0F81	mov     a, 81H
+0700	4091	mov     data, a
+0701	26A5	call    _IFTTTSend
+0702	5794	sdz     _IFTTT_2
+0703	2EC6	jmp     _L49
+0704	0003	ret
+				;420		}
+				;421	}
+				;422	void gpioinit()
+				;423	{
+				;424		car_power_ioset=0;
+				_gpioinit:
+				_gpioinit:
+05E9	3695	clr     PAC5
+				;425		car_power=1;
+05EA	3294	set     PA5
+				;426	
+				;427		buzzer_ioset=0;
+05EB	352B	clr     PHC2
+				;428		buzzer_switch=0;
+05EC	352A	clr     D2
+				;429		
+				;430		lockpower_ioset=0;
+05ED	3799	clr     PBC7
+				;431		lockpower_switch=1;
+05EE	3398	set     PB7
+05EF	0003	ret
+				;432	}
+				;433	void Car_Open()
+				;434	{
+				;435		if(userMode==1||userMode==2)
+				_Car_Open:
+				_Car_Open:
+0506	0FFF	mov     a, FFH
+0507	435C	add     a, userMode[0]
+0508	4081	mov     rb, a
+0509	0FFF	mov     a, FFH
+050A	535D	adc     a, userMode[1]
+050B	4082	mov     rc, a
+050C	0F01	mov     a, 1H
+050D	4201	sub     a, rb
+050E	0F00	mov     a, 0H
+050F	5202	sbc     a, rc
+0510	380A	snz     C
+0511	2D13	jmp     _L51
+				;436		{
+				;437			car_power=1;
+0512	3294	set     PA5
+				_L51:
+0513	0003	ret
+				;438		}
+				;439	}
+				;440	void Car_Close()
+				;441	{
+				;442		if(userMode==1||userMode==2)
+				_Car_Close:
+				_Car_Close:
+04F8	0FFF	mov     a, FFH
+04F9	435C	add     a, userMode[0]
+04FA	4081	mov     rb, a
+04FB	0FFF	mov     a, FFH
+04FC	535D	adc     a, userMode[1]
+04FD	4082	mov     rc, a
+04FE	0F01	mov     a, 1H
+04FF	4201	sub     a, rb
+0500	0F00	mov     a, 0H
+0501	5202	sbc     a, rc
+0502	380A	snz     C
+0503	2D05	jmp     _L53
+				;443		{
+				;444			car_power=0;
+0504	3694	clr     PA5
+				_L53:
+0505	0003	ret
+				;445		}
+				;446	}
+				;447	void Find_Car()
+				;448	{
+				;449		if(userMode==1||userMode==2)
+				_Find_Car:
+				_Find_Car:
+048E	0FFF	mov     a, FFH
+048F	435C	add     a, userMode[0]
+0490	4081	mov     rb, a
+0491	0FFF	mov     a, FFH
+0492	535D	adc     a, userMode[1]
+0493	4082	mov     rc, a
+0494	0F01	mov     a, 1H
+0495	4201	sub     a, rb
+0496	0F00	mov     a, 0H
+0497	5202	sbc     a, rc
+0498	380A	snz     C
+0499	2CCC	jmp     _L55
+049A	0F0A	mov     a, AH
+049B	4080	mov     ra, a
+				;450		{
+				;451			unsigned char i,j;
+				;452			for(i=0;i<10;i++)
+				;453			{
+				;454				buzzer_switch=1;
+				_L60:
+049C	312A	set     D2
+049D	0F0A	mov     a, AH
+049E	4081	mov     rb, a
+				;455				for(j=0;j<10;j++)
+				;456				{GCC_DELAY(263690);}
+				_L58:
+049F	0F00	mov     a, 0H
+04A0	4097	mov     data, a
+04A1	0FFF	mov     a, FFH
+04A2	340B	clr     PBP0
+04A3	348B	clr     PBP1
+04A4	350B	clr     PBP2
+04A5	20FD	call    L00FD
+04A6	350B	clr     PBP2
+04A7	348B	clr     PBP1
+04A8	340B	clr     PBP0
+04A9	5781	sdz     rb
+04AA	2C9F	jmp     _L58
+				;457				buzzer_switch=0;
+04AB	352A	clr     D2
+				;458				GCC_DELAY(263690);
+04AC	0F00	mov     a, 0H
+04AD	4097	mov     data, a
+04AE	0FFF	mov     a, FFH
+04AF	340B	clr     PBP0
+04B0	348B	clr     PBP1
+04B1	350B	clr     PBP2
+04B2	20FD	call    L00FD
+04B3	350B	clr     PBP2
+04B4	348B	clr     PBP1
+04B5	340B	clr     PBP0
+				;459				GCC_DELAY(263690);
+04B6	0F00	mov     a, 0H
+04B7	4097	mov     data, a
+04B8	0FFF	mov     a, FFH
+04B9	340B	clr     PBP0
+04BA	348B	clr     PBP1
+04BB	350B	clr     PBP2
+04BC	20FD	call    L00FD
+04BD	350B	clr     PBP2
+04BE	348B	clr     PBP1
+04BF	340B	clr     PBP0
+				;460				GCC_DELAY(263690);
+04C0	0F00	mov     a, 0H
+04C1	4097	mov     data, a
+04C2	0FFF	mov     a, FFH
+04C3	340B	clr     PBP0
+04C4	348B	clr     PBP1
+04C5	350B	clr     PBP2
+04C6	20FD	call    L00FD
+04C7	350B	clr     PBP2
+04C8	348B	clr     PBP1
+04C9	340B	clr     PBP0
+04CA	5780	sdz     ra
+04CB	2C9C	jmp     _L60
+				_L55:
+04CC	0003	ret
+				;461				
+				;462			}
+				;463		}
+				;464	}
+				;465	void Login()//帳號登入判斷
+				;466	{
+				;467		unsigned char Counter=0,number=0,passwdnum=0,Response[]="OK",Response1[]="Right",Response2[]="Error",buffer=0,Loginpassword[20],*Password1,*Password2;
+				_Login:
+				_Login:
+0514	0F4F	mov     a, 4FH
+0515	40D4	mov     Response[0], a
+0516	0F4B	mov     a, 4BH
+0517	40D5	mov     Response[1], a
+0518	5F56	clr     Response[2]
+0519	0F52	mov     a, 52H
+051A	40CE	mov     Response1[0], a
+051B	0F69	mov     a, 69H
+051C	40CF	mov     Response1[1], a
+051D	0F67	mov     a, 67H
+051E	40D0	mov     Response1[2], a
+051F	0F68	mov     a, 68H
+0520	40D1	mov     Response1[3], a
+0521	0F74	mov     a, 74H
+0522	40D2	mov     Response1[4], a
+0523	5F53	clr     Response1[5]
+0524	0F45	mov     a, 45H
+0525	40C8	mov     Response2[0], a
+0526	0F72	mov     a, 72H
+0527	40C9	mov     Response2[1], a
+0528	0F72	mov     a, 72H
+0529	40CA	mov     Response2[2], a
+052A	0F6F	mov     a, 6FH
+052B	40CB	mov     Response2[3], a
+052C	0F72	mov     a, 72H
+052D	40CC	mov     Response2[4], a
+052E	5F4D	clr     Response2[5]
+0547	5F00	clr     ra
+056E	5F00	clr     ra
+05DE	5F00	clr     ra
+05DF	2DA8	jmp     _L73
+				;468		GCC_DELAY(10000);
+052F	0F09	mov     a, 9H
+0530	4097	mov     data, a
+0531	0FBC	mov     a, BCH
+0532	340B	clr     PBP0
+0533	348B	clr     PBP1
+0534	350B	clr     PBP2
+0535	20FD	call    L00FD
+0536	350B	clr     PBP2
+0537	348B	clr     PBP1
+0538	340B	clr     PBP0
+				;469		Bluetoothsend(Response,2);
+0539	0F02	mov     a, 2H
+053A	4099	mov     size, a
+053B	5F1A	clr     size[1]
+053C	0FB4	mov     a, B4H
+053D	4080	mov     ra, a
+053E	0F00	mov     a, 0H
+053F	4081	mov     rb, a
+0540	0F20	mov     a, 20H
+0541	4300	add     a, ra
+0542	4097	mov     data, a
+0543	0F00	mov     a, 0H
+0544	5301	adc     a, rb
+0545	4098	mov     data, a
+0546	2345	call    _Bluetoothsend
+				;470		while(1)
+				;471		{
+				;472			if(_txif0==1)
+				_L65:
+0548	B810	lsnz    TXIF0
+054A	2D48	jmp     _L65
+				;473			{
+				;474				if(_rxif0==1)
+054B	B910	lsnz    RXIF0
+054D	2D48	jmp     _L65
+				;475				{
+				;476					buffer=_txr_rxr0;
+054E	8713	lmov    a, TXR_RXR0
+0550	40D7	mov     buffer[0], a
+				;477					
+				;478				}
+				;479				if(buffer!=0)
+0551	5E57	snz     buffer[0]
+0552	2D48	jmp     _L65
+				;480				{
+				;481					Loginpassword[Counter]=buffer;
+0553	0FB4	mov     a, B4H
+0554	4081	mov     rb, a
+0555	0F00	mov     a, 0H
+0556	4082	mov     rc, a
+0557	4700	mov     a, ra
+0558	4301	add     a, rb
+0559	0083	mov     MP1L, a
+055A	1F05	clr     ACC
+055B	5302	adc     a, rc
+055C	0084	mov     MP1H, a
+055D	4757	mov     a, buffer[0]
+055E	0082	mov     [02H], a
+				;482					if(buffer=='@'||buffer=='!')
+055F	4757	mov     a, buffer[0]
+0560	0A40	sub     a, 40H
+0561	3D0A	sz      Z
+0562	2DD8	jmp     _L67
+0563	0AE1	sub     a, E1H
+0564	3D0A	sz      Z
+0565	2D68	jmp     _L68
+				;483					{
+				;484						break;
+				;485					}
+				;486					Counter++;
+0566	5480	inc     ra
+0567	2D48	jmp     _L65
+				;487					buffer=0;
+				;488				}
+				;489				
+				;490			}
+				;491	
+				;492		}
+				;493		
+				;494		if(Loginpassword[Counter]=='@')	
+				;495		{
+				;496			Password1=i2c_EEPROM_readData_1(0b1010000);
+				_L67:
+05D8	0F50	mov     a, 50H
+05D9	22BF	call    _i2c_EEPROM_readData_1
+05DA	4700	mov     a, ra
+05DB	4083	mov     rd, a
+05DC	4701	mov     a, rb
+05DD	4084	mov     re, a
+				;497			while(1)
+				;498			{
+				;499				if(Loginpassword[passwdnum]==Password1[passwdnum])
+				_L73:
+05A8	4700	mov     a, ra
+05A9	4081	mov     rb, a
+05AA	5F02	clr     rc
+05AB	0FB4	mov     a, B4H
+05AC	4301	add     a, rb
+05AD	0083	mov     MP1L, a
+05AE	0F00	mov     a, 0H
+05AF	5302	adc     a, rc
+05B0	0084	mov     MP1H, a
+05B1	2006	call    L0006
+05B2	40D7	mov     buffer[0], a
+05B3	4701	mov     a, rb
+05B4	4303	add     a, rd
+05B5	0083	mov     MP1L, a
+05B6	4702	mov     a, rc
+05B7	5304	adc     a, re
+05B8	0084	mov     MP1H, a
+05B9	2006	call    L0006
+05BA	4081	mov     rb, a
+05BB	4757	mov     a, buffer[0]
+05BC	4201	sub     a, rb
+05BD	3D0A	sz      Z
+05BE	2DE0	jmp     _L88
+				;500				{
+				;501	
+				;502					if(Loginpassword[passwdnum]=='@')
+				_L88:
+05E0	4757	mov     a, buffer[0]
+05E1	0A40	sub     a, 40H
+05E2	390A	snz     Z
+05E3	2DA7	jmp     _L71
+				;503					{
+				;504						userMode=1;
+05E4	0F01	mov     a, 1H
+05E5	40DC	mov     userMode[0], a
+05E6	5F5D	clr     userMode[1]
+05E7	2D8D	jmp     _L87
+				_L89:
+05E8	0003	ret
+				;505						GCC_DELAY(20000);
+				;506						Bluetoothsend(Response1,5);
+				;507						Counter=0;
+				;508						break;
+				;509					}
+				;510					passwdnum++;
+				_L71:
+05A7	5480	inc     ra
+				;511				}
+				;512				else
+				;513				{
+				;514					GCC_DELAY(20000);
+				;515					Bluetoothsend(Response2,5);
+				;516					Counter=0;
+				;517					break;
+				;518				}
+				;519			}
+				;520		}		
+				;521		else if(Loginpassword[Counter]=='!')
+				;522		{	
+				;523			Password2=i2c_EEPROM_readData_2(0b1010000);
+				_L68:
+0568	0F50	mov     a, 50H
+0569	21F6	call    _i2c_EEPROM_readData_2
+056A	4700	mov     a, ra
+056B	4083	mov     rd, a
+056C	4701	mov     a, rb
+056D	4084	mov     re, a
+				;524			while(1)
+				;525			{	
+				;526				if(Loginpassword[passwdnum]==Password2[passwdnum])
+				_L76:
+056F	4700	mov     a, ra
+0570	4081	mov     rb, a
+0571	5F02	clr     rc
+0572	0FB4	mov     a, B4H
+0573	4301	add     a, rb
+0574	0083	mov     MP1L, a
+0575	0F00	mov     a, 0H
+0576	5302	adc     a, rc
+0577	0084	mov     MP1H, a
+0578	2006	call    L0006
+0579	40D7	mov     buffer[0], a
+057A	4701	mov     a, rb
+057B	4303	add     a, rd
+057C	0083	mov     MP1L, a
+057D	4702	mov     a, rc
+057E	5304	adc     a, re
+057F	0084	mov     MP1H, a
+0580	2006	call    L0006
+0581	4081	mov     rb, a
+0582	4757	mov     a, buffer[0]
+0583	4201	sub     a, rb
+0584	390A	snz     Z
+0585	2DBF	jmp     _L74
+				;527				{
+				;528		
+				;529					if(Loginpassword[passwdnum]=='!')
+0586	4757	mov     a, buffer[0]
+0587	0A21	sub     a, 21H
+0588	390A	snz     Z
+0589	2DA5	jmp     _L75
+				;530					{
+				;531						userMode=2;
+058A	0F02	mov     a, 2H
+058B	40DC	mov     userMode[0], a
+058C	5F5D	clr     userMode[1]
+				;532						GCC_DELAY(20000);
+				_L87:
+058D	0F13	mov     a, 13H
+058E	4097	mov     data, a
+058F	0F7B	mov     a, 7BH
+0590	340B	clr     PBP0
+0591	348B	clr     PBP1
+0592	350B	clr     PBP2
+0593	20FD	call    L00FD
+0594	350B	clr     PBP2
+0595	348B	clr     PBP1
+0596	340B	clr     PBP0
+				;533						Bluetoothsend(Response1,5);
+0597	0F05	mov     a, 5H
+0598	4099	mov     size, a
+0599	5F1A	clr     size[1]
+059A	0FB4	mov     a, B4H
+059B	4080	mov     ra, a
+059C	0F00	mov     a, 0H
+059D	4081	mov     rb, a
+059E	0F1A	mov     a, 1AH
+059F	4300	add     a, ra
+05A0	4097	mov     data, a
+05A1	0F00	mov     a, 0H
+05A2	5301	adc     a, rb
+05A3	4098	mov     data, a
+05A4	2DD6	jmp     _L86
+				;534						Counter=0;
+				;535						break;
+				;536					}
+				;537					passwdnum++;
+				_L75:
+05A5	5480	inc     ra
+				;538				}
+				;539				else
+				;540				{
+				;541					GCC_DELAY(20000);
+				_L74:
+05BF	0F13	mov     a, 13H
+05C0	4097	mov     data, a
+05C1	0F7B	mov     a, 7BH
+05C2	340B	clr     PBP0
+05C3	348B	clr     PBP1
+05C4	350B	clr     PBP2
+05C5	20FD	call    L00FD
+05C6	350B	clr     PBP2
+05C7	348B	clr     PBP1
+05C8	340B	clr     PBP0
+				;542					Bluetoothsend(Response2,5);
+05C9	0F05	mov     a, 5H
+05CA	4099	mov     size, a
+05CB	5F1A	clr     size[1]
+05CC	0FB4	mov     a, B4H
+05CD	4081	mov     rb, a
+05CE	0F00	mov     a, 0H
+05CF	4082	mov     rc, a
+05D0	0F14	mov     a, 14H
+05D1	4301	add     a, rb
+05D2	4097	mov     data, a
+05D3	0F00	mov     a, 0H
+05D4	5302	adc     a, rc
+05D5	4098	mov     data, a
+				_L86:
+05D6	2345	call    _Bluetoothsend
+				;543					Counter=0;
+				;544					break;
+05D7	2DE8	jmp     _L89
+				;545				}
+				;546			}	
+05A6	2D6F	jmp     _L76
+				;547		}
+				;548	}
+				;549	
+				;550	void Anti_theft()  //防盜功能
+				;551	{
+				;552		unsigned char i,j;
+				;553		if(TheftMode==1)
+				_Anti_theft:
+				_Anti_theft:
+07B3	5764	sdza    TheftMode[0]
+07B4	681C	jmp     _L90
+				;554		{
+				;555				i2c_writeData_ra1(0X68,0X6B,0X00);
+07B5	5F10	clr     data
+07B6	0F6B	mov     a, 6BH
+07B7	408F	mov     Reg, a
+07B8	0F68	mov     a, 68H
+07B9	27A3	call    _i2c_writeData_ra1
+				;556				gxh=i2c_readData(0X68,0X3B);
+07BA	0F3B	mov     a, 3BH
+07BB	408F	mov     Reg, a
+07BC	0F68	mov     a, 68H
+07BD	278D	call    _i2c_readData
+07BE	408A	mov     rd14, a
+07BF	5F0B	clr     re14
+07C0	470A	mov     a, rd14
+07C1	40E7	mov     gxh[0], a
+07C2	470B	mov     a, re14
+07C3	40E8	mov     gxh[1], a
+				;557				if((gxh-gxh1)>=15 && (gxh-gxh1)<=(-15) && gxh1!=0)
+07C4	4765	mov     a, gxh1[0]
+07C5	4088	mov     rb14, a
+07C6	4766	mov     a, gxh1[1]
+07C7	4089	mov     rc14, a
+07C8	0FF1	mov     a, F1H
+07C9	4208	sub     a, rb14
+07CA	408C	mov     rf14, a
+07CB	0FFF	mov     a, FFH
+07CC	5209	sbc     a, rc14
+07CD	408D	mov     rg14, a
+07CE	470C	mov     a, rf14
+07CF	438A	addm    a, rd14
+07D0	470D	mov     a, rg14
+07D1	538B	adcm    a, re14
+07D2	0FE2	mov     a, E2H
+07D3	420A	sub     a, rd14
+07D4	0FFF	mov     a, FFH
+07D5	520B	sbc     a, re14
+07D6	3C0A	sz      C
+07D7	2FE4	jmp     _L92
+				_L92:
+07E4	4708	mov     a, rb14
+07E5	4509	or      a, rc14
+07E6	3D0A	sz      Z
+07E7	2FD8	jmp     _L93
+				;558				{
+				;559					IFTTT();
+07E8	26C4	call    _IFTTT
+07E9	0F0A	mov     a, AH
+07EA	4087	mov     ra14, a
+				;560					for(i=0;i<10;i++)
+				;561					{
+				;562						buzzer_switch=1;
+				_L96:
+07EB	312A	set     D2
+07EC	0F05	mov     a, 5H
+07ED	4088	mov     rb14, a
+				;563						for(j=0;j<5;j++)
+				;564						{GCC_DELAY(263690);}
+				_L95:
+07EE	0F00	mov     a, 0H
+07EF	408E	mov     time, a
+07F0	0FFF	mov     a, FFH
+07F1	340B	clr     PBP0
+07F2	348B	clr     PBP1
+07F3	350B	clr     PBP2
+07F4	268D	call    L068D
+07F5	350B	clr     PBP2
+07F6	348B	clr     PBP1
+07F7	340B	clr     PBP0
+07F8	5788	sdz     rb14
+07F9	2FEE	jmp     _L95
+				;565						buzzer_switch=0;
+07FA	352A	clr     D2
+				;566						GCC_DELAY(263690);
+07FB	0F00	mov     a, 0H
+07FC	408E	mov     time, a
+07FD	0FFF	mov     a, FFH
+07FE	340B	clr     PBP0
+07FF	348B	clr     PBP1
+0800	350B	clr     PBP2
+0801	268D	call    L068D
+0802	350B	clr     PBP2
+0803	348B	clr     PBP1
+0804	340B	clr     PBP0
+				;567						GCC_DELAY(263690);
+0805	0F00	mov     a, 0H
+0806	408E	mov     time, a
+0807	0FFF	mov     a, FFH
+0808	340B	clr     PBP0
+0809	348B	clr     PBP1
+080A	350B	clr     PBP2
+080B	268D	call    L068D
+080C	350B	clr     PBP2
+080D	348B	clr     PBP1
+080E	340B	clr     PBP0
+				;568						GCC_DELAY(263690);
+080F	0F00	mov     a, 0H
+0810	408E	mov     time, a
+0811	0FFF	mov     a, FFH
+0812	340B	clr     PBP0
+0813	348B	clr     PBP1
+0814	350B	clr     PBP2
+0815	268D	call    L068D
+0816	350B	clr     PBP2
+0817	348B	clr     PBP1
+0818	340B	clr     PBP0
+0819	5787	sdz     ra14
+081A	2FEB	jmp     _L96
+081B	2FD8	jmp     _L93
+				_L90:
+081C	0003	ret
+				startup_value:
+				@ROMDATA_BASE .SECTION 'CODE'
+081D	000F	dc	0000FH
+081E	00DA	mov     MDUWR1, a
+				L0830:
+				org	0830h
+0830	0000	nop
+				L084B:
+				org	084bh
+084B	0000	nop
+				L0864:
+				org	0864h
+0864	0000	nop
+				L0954:
+				org	0954h
+0954	0000	nop
+				L0961:
+				org	0961h
+0961	0000	nop
+				L096D:
+				org	096dh
+096D	0000	nop
+				L0974:
+				org	0974h
+0974	0000	nop
+				L0A52:
+				org	0a52h
+0A52	0000	nop
+				L0B59:
+				org	0b59h
+0B59	0000	nop
+				L0B75:
+				org	0b75h
+0B75	0000	nop
+				L0C75:
+				org	0c75h
+0C75	0000	nop
+				L0D63:
+				org	0d63h
+0D63	0000	nop
+				L0D67:
+				org	0d67h
+0D67	0000	nop
+				L0D6B:
+				org	0d6bh
+0D6B	0000	nop
+				L0D72:
+				org	0d72h
+0D72	0000	nop
+				L0E00:
+				org	0e00h
+0E00	0000	nop
+				L0E69:
+				org	0e69h
+0E69	0000	nop
+				L0F48:
+				org	0f48h
+0F48	0000	nop
+				L0F4E:
+				org	0f4eh
+0F4E	0000	nop
+				L0F4F:
+				org	0f4fh
+0F4F	0000	nop
+				L0F63:
+				org	0f63h
+0F63	0000	nop
+				L0F69:
+				org	0f69h
+0F69	0000	nop
+				;569						
+				;570					}
+				;571				}
+				;572				gxh=i2c_readData(0X68,0X3B);
+				_L93:
+07D8	0F3B	mov     a, 3BH
+07D9	408F	mov     Reg, a
+07DA	0F68	mov     a, 68H
+07DB	278D	call    _i2c_readData
+07DC	4087	mov     ra14, a
+07DD	4707	mov     a, ra14
+07DE	40E7	mov     gxh[0], a
+07DF	5F68	clr     gxh[1]
+				;573				gxh1=gxh;	
+07E0	4707	mov     a, ra14
+07E1	40E5	mov     gxh1[0], a
+07E2	5F66	clr     gxh1[1]
+07E3	681C	jmp     _L90
+				;574		}
+				;575	}
+				;576	
+				;577	void Anti_Open()
+				;578	{
+				;579		if((userMode==1||userMode==2))
+				_Anti_Open:
+				_Anti_Open:
+04E9	0FFF	mov     a, FFH
+04EA	435C	add     a, userMode[0]
+04EB	4081	mov     rb, a
+04EC	0FFF	mov     a, FFH
+04ED	535D	adc     a, userMode[1]
+04EE	4082	mov     rc, a
+04EF	0F01	mov     a, 1H
+04F0	4201	sub     a, rb
+04F1	0F00	mov     a, 0H
+04F2	5202	sbc     a, rc
+04F3	380A	snz     C
+04F4	2CF7	jmp     _L103
+				;580		{
+				;581			TheftMode=1;
+04F5	0F01	mov     a, 1H
+04F6	40E4	mov     TheftMode[0], a
+				_L103:
+04F7	0003	ret
+				;582		}
+				;583	
+				;584	}
+				;585	void Anti_Close()
+				;586	{
+				;587		if((userMode==1||userMode==2))
+				_Anti_Close:
+				_Anti_Close:
+04DB	0FFF	mov     a, FFH
+04DC	435C	add     a, userMode[0]
+04DD	4081	mov     rb, a
+04DE	0FFF	mov     a, FFH
+04DF	535D	adc     a, userMode[1]
+04E0	4082	mov     rc, a
+04E1	0F01	mov     a, 1H
+04E2	4201	sub     a, rb
+04E3	0F00	mov     a, 0H
+04E4	5202	sbc     a, rc
+04E5	380A	snz     C
+04E6	2CE8	jmp     _L105
+				;588		{
+				;589			TheftMode=0;
+04E7	5F64	clr     TheftMode[0]
+				_L105:
+04E8	0003	ret
+				;590		}
+				;591	
+				;592	}
+				;593	void ChangePassWord()
+				;594	{	if(userMode==1)
+				_ChangePassWord:
+				_ChangePassWord:
+036A	475C	mov     a, userMode[0]
+036B	0C01	xor     a, 1H
+036C	455D	or      a, userMode[1]
+036D	390A	snz     Z
+036E	2C8D	jmp     L048D
+				;595		{
+				;596			unsigned char Counter=0,Right=0,passwdnum=0,Response1[]="success",Response2[]="failure",buffer=0,Changepassword[20],*Password1,*Password2;
+036F	0FE5	mov     a, E5H
+0370	0083	mov     MP1L, a
+0371	0F81	mov     a, 81H
+0372	0084	mov     MP1H, a
+0373	2006	call    L0006
+0374	40D0	mov     Response1[0], a
+0375	1483	inc     MP1L
+0376	3D0A	sz      Z
+0377	1484	inc     MP1H
+0378	2006	call    L0006
+0379	40D1	mov     Response1[1], a
+037A	1483	inc     MP1L
+037B	3D0A	sz      Z
+037C	1484	inc     MP1H
+037D	2006	call    L0006
+037E	40D2	mov     Response1[2], a
+037F	1483	inc     MP1L
+0380	3D0A	sz      Z
+0381	1484	inc     MP1H
+0382	2006	call    L0006
+0383	40D3	mov     Response1[3], a
+0384	1483	inc     MP1L
+0385	3D0A	sz      Z
+0386	1484	inc     MP1H
+0387	2006	call    L0006
+0388	40D4	mov     Response1[4], a
+0389	1483	inc     MP1L
+038A	3D0A	sz      Z
+038B	1484	inc     MP1H
+038C	2006	call    L0006
+038D	40D5	mov     Response1[5], a
+038E	1483	inc     MP1L
+038F	3D0A	sz      Z
+0390	1484	inc     MP1H
+0391	2006	call    L0006
+0392	40D6	mov     Response1[6], a
+0393	1483	inc     MP1L
+0394	3D0A	sz      Z
+0395	1484	inc     MP1H
+0396	2006	call    L0006
+0397	40D7	mov     Response1[7], a
+0398	0FED	mov     a, EDH
+0399	0083	mov     MP1L, a
+039A	0F81	mov     a, 81H
+039B	0084	mov     MP1H, a
+039C	2006	call    L0006
+039D	40C8	mov     Response2[0], a
+039E	1483	inc     MP1L
+039F	3D0A	sz      Z
+03A0	1484	inc     MP1H
+03A1	2006	call    L0006
+03A2	40C9	mov     Response2[1], a
+03A3	1483	inc     MP1L
+03A4	3D0A	sz      Z
+03A5	1484	inc     MP1H
+03A6	2006	call    L0006
+03A7	40CA	mov     Response2[2], a
+03A8	1483	inc     MP1L
+03A9	3D0A	sz      Z
+03AA	1484	inc     MP1H
+03AB	2006	call    L0006
+03AC	40CB	mov     Response2[3], a
+03AD	1483	inc     MP1L
+03AE	3D0A	sz      Z
+03AF	1484	inc     MP1H
+03B0	2006	call    L0006
+03B1	40CC	mov     Response2[4], a
+03B2	1483	inc     MP1L
+03B3	3D0A	sz      Z
+03B4	1484	inc     MP1H
+03B5	2006	call    L0006
+03B6	40CD	mov     Response2[5], a
+03B7	1483	inc     MP1L
+03B8	3D0A	sz      Z
+03B9	1484	inc     MP1H
+03BA	2006	call    L0006
+03BB	40CE	mov     Response2[6], a
+03BC	1483	inc     MP1L
+03BD	3D0A	sz      Z
+03BE	1484	inc     MP1H
+03BF	2006	call    L0006
+03C0	40CF	mov     Response2[7], a
+03D3	5F00	clr     ra
+040A	5F00	clr     ra
+048B	5F00	clr     ra
+048C	2C45	jmp     L0445
+				L048D:
+048D	0003	ret
+				;597			GCC_DELAY(20000);
+03C1	0F13	mov     a, 13H
+03C2	4097	mov     data, a
+03C3	0F7B	mov     a, 7BH
+03C4	340B	clr     PBP0
+03C5	348B	clr     PBP1
+03C6	350B	clr     PBP2
+03C7	20FD	call    L00FD
+03C8	350B	clr     PBP2
+03C9	348B	clr     PBP1
+03CA	340B	clr     PBP0
+				;598			Bluetoothsend("OK",2);
+03CB	0F02	mov     a, 2H
+03CC	4099	mov     size, a
+03CD	5F1A	clr     size[1]
+03CE	0FE2	mov     a, E2H
+03CF	4097	mov     data, a
+03D0	0F81	mov     a, 81H
+03D1	4098	mov     data, a
+03D2	2345	call    _Bluetoothsend
+				;599			while(1)
+				;600			{
+				;601				if(_txif0==1)
+				L03D4:
+03D4	B810	lsnz    TXIF0
+03D6	2BD4	jmp     L03D4
+				;602				{
+				;603					if(_rxif0==1)
+03D7	B910	lsnz    RXIF0
+03D9	2BD4	jmp     L03D4
+				;604					{
+				;605						buffer=_txr_rxr0;
+03DA	8713	lmov    a, TXR_RXR0
+03DC	40D8	mov     buffer[0], a
+				;606					}
+				;607					if(buffer!=0)
+03DD	5E58	snz     buffer[0]
+03DE	2BD4	jmp     L03D4
+				;608					{
+				;609						Changepassword[Counter]=buffer;
+03DF	0FB4	mov     a, B4H
+03E0	4081	mov     rb, a
+03E1	0F00	mov     a, 0H
+03E2	4082	mov     rc, a
+03E3	4700	mov     a, ra
+03E4	4301	add     a, rb
+03E5	0083	mov     MP1L, a
+03E6	1F05	clr     ACC
+03E7	5302	adc     a, rc
+03E8	0084	mov     MP1H, a
+03E9	4758	mov     a, buffer[0]
+03EA	0082	mov     [02H], a
+				;610						if(buffer=='@'||buffer=='!')
+03EB	4758	mov     a, buffer[0]
+03EC	0A40	sub     a, 40H
+03ED	3D0A	sz      Z
+03EE	2BF4	jmp     L03F4
+03EF	0AE1	sub     a, E1H
+03F0	3D0A	sz      Z
+03F1	2C75	jmp     L0475
+				;611						{
+				;612							break;
+				;613						}
+				;614						Counter++;
+03F2	5480	inc     ra
+03F3	2BD4	jmp     L03D4
+				;615						buffer=0;
+				;616					}
+				;617				}
+				;618			}
+				;619			
+				;620			if(Changepassword[Counter]=='@')
+				;621			{
+				;622				i2c_EEPROM_WriteData_1(0b1010000,Changepassword);
+				L03F4:
+03F4	0FB4	mov     a, B4H
+03F5	4099	mov     size, a
+03F6	0F00	mov     a, 0H
+03F7	409A	mov     size[1], a
+03F8	0F50	mov     a, 50H
+03F9	230A	call    _i2c_EEPROM_WriteData_1
+				;623				GCC_DELAY(20000);
+03FA	0F13	mov     a, 13H
+03FB	4097	mov     data, a
+03FC	0F7B	mov     a, 7BH
+03FD	340B	clr     PBP0
+03FE	348B	clr     PBP1
+03FF	350B	clr     PBP2
+0400	20FD	call    L00FD
+0401	350B	clr     PBP2
+0402	348B	clr     PBP1
+0403	340B	clr     PBP0
+				;624				Password1=i2c_EEPROM_readData_1(0b1010000);
+0404	0F50	mov     a, 50H
+0405	22BF	call    _i2c_EEPROM_readData_1
+0406	4700	mov     a, ra
+0407	4083	mov     rd, a
+0408	4701	mov     a, rb
+0409	4084	mov     re, a
+				;625				while(1)
+				;626				{
+				;627					if(Changepassword[passwdnum]==Password1[passwdnum])
+				L040B:
+040B	4700	mov     a, ra
+040C	4081	mov     rb, a
+040D	5F02	clr     rc
+040E	0FB4	mov     a, B4H
+040F	4301	add     a, rb
+0410	0083	mov     MP1L, a
+0411	0F00	mov     a, 0H
+0412	5302	adc     a, rc
+0413	0084	mov     MP1H, a
+0414	2006	call    L0006
+0415	40D8	mov     buffer[0], a
+0416	4701	mov     a, rb
+0417	4303	add     a, rd
+0418	0083	mov     MP1L, a
+0419	4702	mov     a, rc
+041A	5304	adc     a, re
+041B	0084	mov     MP1H, a
+041C	2006	call    L0006
+041D	4081	mov     rb, a
+041E	4758	mov     a, buffer[0]
+041F	4201	sub     a, rb
+0420	390A	snz     Z
+0421	2C5C	jmp     L045C
+				;628					{
+				;629						if(Changepassword[passwdnum]=='@')
+0422	4758	mov     a, buffer[0]
+0423	0A40	sub     a, 40H
+0424	3D0A	sz      Z
+0425	2C28	jmp     L0428
+				;630						{
+				;631							GCC_DELAY(20000);
+				;632							Bluetoothsend1(Response1,7);
+				;633							Counter=0;
+				;634							break;
+				;635						}
+				;636						passwdnum++;
+0426	5480	inc     ra
+				;637					}
+				;638					else
+				;639					{
+				;640						GCC_DELAY(20000);
+				;641						Bluetoothsend1(Response2,7);
+				;642						Counter=0;
+				;643						break;
+				;644					}	
+				;645				}		
+0427	2C0B	jmp     L040B
+				;646			}
+				;647			else if(Changepassword[Counter]=='!')
+				;648			{
+				;649				i2c_EEPROM_WriteData_2(0b1010000,Changepassword);
+				L0475:
+0475	0FB4	mov     a, B4H
+0476	4099	mov     size, a
+0477	0F00	mov     a, 0H
+0478	409A	mov     size[1], a
+0479	0F50	mov     a, 50H
+047A	225F	call    _i2c_EEPROM_WriteData_2
+				;650				GCC_DELAY(20000);
+047B	0F13	mov     a, 13H
+047C	4097	mov     data, a
+047D	0F7B	mov     a, 7BH
+047E	340B	clr     PBP0
+047F	348B	clr     PBP1
+0480	350B	clr     PBP2
+0481	20FD	call    L00FD
+0482	350B	clr     PBP2
+0483	348B	clr     PBP1
+0484	340B	clr     PBP0
+				;651				Password2=i2c_EEPROM_readData_2(0b1010000);
+0485	0F50	mov     a, 50H
+0486	21F6	call    _i2c_EEPROM_readData_2
+0487	4700	mov     a, ra
+0488	4083	mov     rd, a
+0489	4701	mov     a, rb
+048A	4084	mov     re, a
+				;652				while(1)
+				;653				{
+				;654					if(Changepassword[passwdnum]==Password2[passwdnum])
+				L0445:
+0445	4700	mov     a, ra
+0446	4081	mov     rb, a
+0447	5F02	clr     rc
+0448	0FB4	mov     a, B4H
+0449	4301	add     a, rb
+044A	0083	mov     MP1L, a
+044B	0F00	mov     a, 0H
+044C	5302	adc     a, rc
+044D	0084	mov     MP1H, a
+044E	2006	call    L0006
+044F	40D8	mov     buffer[0], a
+0450	4701	mov     a, rb
+0451	4303	add     a, rd
+0452	0083	mov     MP1L, a
+0453	4702	mov     a, rc
+0454	5304	adc     a, re
+0455	0084	mov     MP1H, a
+0456	2006	call    L0006
+0457	4081	mov     rb, a
+0458	4758	mov     a, buffer[0]
+0459	4201	sub     a, rb
+045A	3D0A	sz      Z
+045B	2C40	jmp     L0440
+				;655					{
+				;656						if(Changepassword[passwdnum]=='!')
+				L0440:
+0440	4758	mov     a, buffer[0]
+0441	0A21	sub     a, 21H
+0442	3D0A	sz      Z
+0443	2C28	jmp     L0428
+				;657						{
+				;658							GCC_DELAY(20000);
+				L0428:
+0428	0F13	mov     a, 13H
+0429	4097	mov     data, a
+042A	0F7B	mov     a, 7BH
+042B	340B	clr     PBP0
+042C	348B	clr     PBP1
+042D	350B	clr     PBP2
+042E	20FD	call    L00FD
+042F	350B	clr     PBP2
+0430	348B	clr     PBP1
+0431	340B	clr     PBP0
+				;659							Bluetoothsend1(Response1,7);
+0432	0F07	mov     a, 7H
+0433	4099	mov     size, a
+0434	5F1A	clr     size[1]
+0435	0FB4	mov     a, B4H
+0436	4080	mov     ra, a
+0437	0F00	mov     a, 0H
+0438	4081	mov     rb, a
+0439	0F1C	mov     a, 1CH
+043A	4300	add     a, ra
+043B	4097	mov     data, a
+043C	0F00	mov     a, 0H
+043D	5301	adc     a, rb
+043E	4098	mov     data, a
+043F	2C73	jmp     L0473
+				;660							Counter=0;
+				;661							break;
+				;662						}
+				;663						passwdnum++;
+0444	5480	inc     ra
+				;664					}
+				;665					else
+				;666					{
+				;667						GCC_DELAY(20000);
+				L045C:
+045C	0F13	mov     a, 13H
+045D	4097	mov     data, a
+045E	0F7B	mov     a, 7BH
+045F	340B	clr     PBP0
+0460	348B	clr     PBP1
+0461	350B	clr     PBP2
+0462	20FD	call    L00FD
+0463	350B	clr     PBP2
+0464	348B	clr     PBP1
+0465	340B	clr     PBP0
+				;668						Bluetoothsend1(Response2,7);
+0466	0F07	mov     a, 7H
+0467	4099	mov     size, a
+0468	5F1A	clr     size[1]
+0469	0FB4	mov     a, B4H
+046A	4081	mov     rb, a
+046B	0F00	mov     a, 0H
+046C	4082	mov     rc, a
+046D	0F14	mov     a, 14H
+046E	4301	add     a, rb
+046F	4097	mov     data, a
+0470	0F00	mov     a, 0H
+0471	5302	adc     a, rc
+0472	4098	mov     data, a
+				L0473:
+0473	229A	call    _Bluetoothsend1
+				;669						Counter=0;
+				;670						break;
+0474	2C8D	jmp     L048D
+				;671					}	
+				;672				}
+				;673							
+				;674			}
+				;675		}
+				;676	}
+				;677	void Key_Lock_Open()  //鑰匙模式開啟
+				;678	{
+				;679		if(userMode==1)
+				_Key_Lock_Open:
+				_Key_Lock_Open:
+04D4	475C	mov     a, userMode[0]
+04D5	0C01	xor     a, 1H
+04D6	455D	or      a, userMode[1]
+04D7	390A	snz     Z
+04D8	2CDA	jmp     _L133
+				;680		{
+				;681			lockpower_switch=0;
+04D9	3798	clr     PB7
+				_L133:
+04DA	0003	ret
+				;682		}
+				;683	
+				;684	}
+				;685	void Key_Lock_Close() //鑰匙模式關閉
+				;686	{
+				;687		if(userMode==1)
+				_Key_Lock_Close:
+				_Key_Lock_Close:
+04CD	475C	mov     a, userMode[0]
+04CE	0C01	xor     a, 1H
+04CF	455D	or      a, userMode[1]
+04D0	390A	snz     Z
+04D1	2CD3	jmp     _L135
+				;688		{
+				;689			lockpower_switch=1;
+04D2	3398	set     PB7
+				_L135:
+04D3	0003	ret
+				;690		}
+				;691	
+				;692	}
+				;693	void SetUserModeZero()  //登出後關閉功能
+				;694	{
+				;695		userMode=0;
+				_SetUserModeZero:
+				_SetUserModeZero:
+0002	5F5C	clr     userMode[0]
+0003	5F5D	clr     userMode[1]
+0004	0003	ret
+0005	1483	inc     MP1L
+				L0006:
+0006	3F84	sz      MP1H.7
+0007	280A	jmp     L000A
+0008	0702	mov     a, [02H]
+0009	0003	ret
+				L000A:
+000A	1B04	rrca    MP1H
+000B	0E3F	and     a, 3FH
+000C	0089	mov     TBHP, a
+000D	1B03	rrca    MP1L
+000E	0087	mov     TBLP, a
+000F	1D05	tabrd   ACC
+0010	3C0A	sz      C
+0011	0708	mov     a, TBLH
+0012	0003	ret
+0013	0000	nop
+				;696	}
+				;file D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\startup1_l.asm
+				;1	;;--------------------------------------------------------------;;
+				;2	;;    This file is part of the Holtek C Compiler V3 package     ;;
+				;3	;;    For the initialization of static linkage variables        ;;
+				;4	;;    Copyright (C) 2016 Holtek Semiconductor Inc.              ;;
+				;5	;;    Version: 1.06 (Above IDE3000 V7.93)                       ;;
+				;6	;;    Date:    2016/12/07                                        ;;
+				;7	;;--------------------------------------------------------------;;
+				;8	
+				;9	acc equ [05h]
+				;10	tblp equ [07h]
+				;11	tblh equ [08h]
+				;12	;;tbhp equ [09h] 
+				;13	r0 equ [00h]
+				;14	mp0 equ [01h]
+				;15	r1 equ [02h]
+				;16	mp1l equ [03h]
+				;17	mp1h equ [04h]
+				;18	z equ [0ah].2
+				;19	c equ [0ah].0
+				;20	
+				;21	ifndef tbhp
+				;22	tbhp equ [09h]
+				;23	endif
+				;24	 
+				;25	extern startup_value_1:near
+				;26	
+				;27	@start .section 'code'
+				;28	begin_startup_value:
+				;29	  mov a,low (offset startup_value_1) 
+				begin_startup_value:
+				@start .SECTION 'CODE'
+				@dummy20 .SECTION 'CODE'
+				_main_startup1:
+				@start .SECTION 'CODE'
+0018	0F1C	mov     a, 1CH
+				;30	  mov tblp,a
+0019	0087	mov     TBLP, a
+				;31	  mov a,high (offset startup_value_1) 
+001A	0F08	mov     a, 8H
+				;32	  mov tbhp,a
+001B	0089	mov     TBHP, a
+				;33	next_table:
+				;34	  ;CLR WDT
+				;35	  inc tblp
+				next_table:
+001C	1487	inc     TBLP
+				;36	  sz z
+001D	3D0A	sz      Z
+				;37	  inc tbhp
+001E	1489	inc     TBHP
+				;38	ifdef USE_TABRDC
+				;39	  tabrdc mp0
+				;40	else
+				;41	  tabrd mp0
+001F	1D01	tabrd   MP0
+				;42	endif
+				;43	  sz mp0
+0020	1081	sz      MP0
+				;44	  jmp read_data
+0021	2823	jmp     read_data
+				;45	  jmp startupend1
+0022	2838	jmp     startupend1
+				;46	read_data:
+				;47	  inc tblp
+				read_data:
+0023	1487	inc     TBLP
+				;48	  sz z
+0024	3D0A	sz      Z
+				;49	  inc tbhp
+0025	1489	inc     TBHP
+				;50	ifdef USE_TABRDC
+				;51	  tabrdc mp1l
+				;52	else
+				;53	  tabrd mp1l
+0026	1D03	tabrd   MP1L
+				;54	endif
+				;55	  mov a,tblh
+0027	0708	mov     a, TBLH
+				;56	  mov mp1h,a
+0028	0084	mov     MP1H, a
+				;57	next_data:
+				;58	  inc tblp
+				next_data:
+0029	1487	inc     TBLP
+				;59	  sz z
+002A	3D0A	sz      Z
+				;60	  inc tbhp
+002B	1489	inc     TBHP
+				;61	ifdef USE_TABRDC
+				;62	  tabrdc acc
+				;63	else
+				;64	  tabrd acc
+002C	1D05	tabrd   ACC
+				;65	endif
+				;66	  mov r1,a
+002D	0082	mov     [02H], a
+				;67	  sdz mp0
+002E	1781	sdz     MP0
+				;68	  jmp $+2
+002F	2831	jmp     L0031
+				;69	  jmp next_table
+0030	281C	jmp     next_table
+				;70	  inc mp1l
+				L0031:
+0031	1483	inc     MP1L
+				;71	  mov a,tblh
+0032	0708	mov     a, TBLH
+				;72	  mov r1,a
+0033	0082	mov     [02H], a
+				;73	  inc mp1l
+0034	1483	inc     MP1L
+				;74	  sdz mp0
+0035	1781	sdz     MP0
+				;75	  jmp next_data
+0036	2829	jmp     next_data
+				;76	  jmp next_table
+0037	281C	jmp     next_table
+				;77	
+				;78	;end_startup_value:
+				;79	
+				;80	startupend1:
+				;81		MOV A,high  bitdatasec1_start
+				startupend1:
+0038	0F00	mov     a, 0H
+				;82		MOV mp1h,a
+0039	0084	mov     MP1H, a
+				;83		MOV A,offset bitdatasec1_end
+				L003A:
+003A	0F80	mov     a, 80H
+				;84		mov mp1l,A
+003B	0083	mov     MP1L, a
+				;85		dec mp1l
+003C	1583	dec     MP1L
+				;86		clr z
+003D	350A	clr     Z
+				;87		sub a,offset bitdatasec1_start
+003E	0A80	sub     a, 80H
+				;88		sz z
+003F	3D0A	sz      Z
+				;89		jmp startupend2
+0040	2845	jmp     startupend2
+				;90	L0005:
+				;91		set r1
+				L0005:
+0041	1F82	set     [02H]
+				;92		dec mp1l
+0042	1583	dec     MP1L
+				;93		sdz  acc
+0043	1785	sdz     ACC
+				;94		jmp L0005
+0044	2841	jmp     L0005
+				;95	
+				;96	startupend2:
+				;97		MOV A,high  bitdatasec0_start
+				startupend2:
+0045	0F00	mov     a, 0H
+				;98		MOV mp1h,a
+0046	0084	mov     MP1H, a
+				;99		MOV A,offset bitdatasec0_end
+0047	0F80	mov     a, 80H
+				;100		mov mp1l,A
+0048	0083	mov     MP1L, a
+				;101		dec mp1l
+0049	1583	dec     MP1L
+				;102		clr z
+004A	350A	clr     Z
+				;103		sub a,offset bitdatasec0_start
+004B	0A80	sub     a, 80H
+				;104		sz  z
+004C	3D0A	sz      Z
+				;105		jmp startupend3
+004D	2852	jmp     startupend3
+				;106	L0006:
+				;107		clr r1
+				L0006:
+004E	1F02	clr     [02H]
+				;108		dec mp1l
+004F	1583	dec     MP1L
+				;109		sdz  acc
+0050	1785	sdz     ACC
+				;110		jmp L0006
+0051	284E	jmp     L0006
+				;111	startupend3:
+				;112			
+				;113	   
+				;114	@ROMDATA_BASE .SECTION com_l 'CODE'  
+				;115	startup_value:
+				;116	;;linker range the initial value table here
+				;117	
+				;118	@BITDATASEC1 .SECTION com_l 'DATA'  
+				;119	bitdatasec1_start:
+				;120	
+				;121	@BITDATASEC1 .SECTION com_e 'DATA'  
+				;122	bitdatasec1_end:
+				;123	
+				;124	@BITDATASEC .SECTION com_l 'DATA'  
+				;125	bitdatasec0_start:
+				;126	
+				;127	@BITDATASEC .SECTION com_e 'DATA'  
+				;128	bitdatasec0_end:
+				data .SECTION 'DATA'
+				__intc0 DB DUP (?) ; __intc0
+				__intc1 DB DUP (?) ; __intc1
+				__pa DB DUP (?) ; __pa
+				__pac DB DUP (?) ; __pac
+				__papu DB DUP (?) ; __papu
+				__pawu DB DUP (?) ; __pawu
+				__pb DB DUP (?) ; __pb
+				__pbc DB DUP (?) ; __pbc
+				__pg DB DUP (?) ; __pg
+				__pgc DB DUP (?) ; __pgc
+				__pgpu DB DUP (?) ; __pgpu
+				__ph DB DUP (?) ; __ph
+				__phc DB DUP (?) ; __phc
+				__mfi0 DB DUP (?) ; __mfi0
+				__scc DB DUP (?) ; __scc
+				__hircc DB DUP (?) ; __hircc
+				__wdtc DB DUP (?) ; __wdtc
+				__stm0c0 DB DUP (?) ; __stm0c0
+				__stm0c1 DB DUP (?) ; __stm0c1
+				__stm0dl DB DUP (?) ; __stm0dl
+				__stm0dh DB DUP (?) ; __stm0dh
+				__stm0al DB DUP (?) ; __stm0al
+				__stm0ah DB DUP (?) ; __stm0ah
+				ra DB DUP (?)
+				rb DB DUP (?)
+				rc DB DUP (?)
+				rd DB DUP (?)
+				re DB DUP (?)
+				r114 DB DUP (?)
+				r214 DB DUP (?)
+				ra14 DB DUP (?)
+				rb14 DB DUP (?)
+				rc14 DB DUP (?)
+				rd14 DB DUP (?)
+				re14 DB DUP (?)
+				rf14 DB DUP (?)
+				rg14 DB DUP (?)
+				time DB 2 DUP (?) ; time
+				Reg DB DUP (?) ; Reg
+				data DB DUP (?) ; data
+				data DB DUP (?) ; data
+				size DB 2 DUP (?) ; size
+				_IFTTT_2 DB DUP (?)
+				_Anti_theft_2 DB DUP (?)
+				data DB DUP (?) ; data
+				data DB DUP (?) ; data
+				size DB 2 DUP (?) ; size
+				addr DB DUP (?) ; addr
+				i DB DUP (?) ; i
+				address DB 2 DUP (?) ; address
+				addr DB DUP (?) ; addr
+				i DB DUP (?) ; i
+				address DB 2 DUP (?) ; address
+				addrr DB DUP (?) ; addrr
+				Changepassword DB DUP (?) ; Changepassword
+				Response2 DB DUP (?) ; Response2
+				Response1 DB DUP (?) ; Response1
+				Response1 DB DUP (?) ; Response1
+				Response DB DUP (?) ; Response
+				buffer DB DUP (?) ; buffer
+				buffer DB DUP (?) ; buffer
+				_main_2 DB DUP (?)
+				instruction DB DUP (?) ; instruction
+				buffer DB DUP (?) ; buffer
+				userMode DB 2 DUP (?) ; userMode
+				i DB 2 DUP (?) ; i
+				counter DB 4 DUP (?) ; counter
+				TheftMode DB DUP (?) ; TheftMode
+				gxh1 DB 2 DUP (?) ; gxh1
+				gxh DB 2 DUP (?) ; gxh
+				r314 DB DUP (?)
+				r414 DB DUP (?)
+				r514 DB DUP (?)
+				r614 DB DUP (?)
+				r714 DB DUP (?)
+				__u0sr DB DUP (?) ; __u0sr
+				__u0cr1 DB DUP (?) ; __u0cr1
+				__u0cr2 DB DUP (?) ; __u0cr2
+				__txr_rxr0 DB DUP (?) ; __txr_rxr0
+				__brg0 DB DUP (?) ; __brg0
+				__u1cr1 DB DUP (?) ; __u1cr1
+				__u1cr2 DB DUP (?) ; __u1cr2
+				__txr_rxr1 DB DUP (?) ; __txr_rxr1
+				__brg1 DB DUP (?) ; __brg1
+				__ifs3 DB DUP (?) ; __ifs3
+				__pds0 DB DUP (?) ; __pds0
+				__pds1 DB DUP (?) ; __pds1
+				__phs0 DB DUP (?) ; __phs0

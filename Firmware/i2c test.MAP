@@ -1,0 +1,484 @@
+
+Linker Version 8.7.3.170508
+Input Object File: D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST.OBJ
+Input Object File: D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\STARTUP1_L.OBJ
+Input Object File: D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ
+
+Input Library File: C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V7.x\LIB\LIBHOLTEKGCC.LIB
+Input Library File: C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V7.x\LIB\v3_lmrmc.lib
+
+
+     Bank    Start     End      Length     Class    AvgIns    Name
+     00h     0000h     0001h    0002h      CODE               @code (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST.OBJ)
+     00h     0002h     0004h    0003h      CODE               _SetUserModeZero (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     0005h     0012h    000eh      CODE               _CROM2PROM (CROM2PROM)
+     00h     0014h     0017h    0004h      CODE               @ISR_tmr0_code (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST.OBJ)
+     00h     0018h     0054h    003dh      CODE               @start (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST.OBJ)
+     00h     0055h     008ch    0038h      CODE               _ISR_tmr0 (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST.OBJ)
+     00h     0093h     00fah    0068h      CODE               @crom (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     00fbh     0108h    000eh      CODE               _builtin_holtek_delay_isr00 (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V7.x\LIB\LIBHOLTEKGCC.LIB)
+     00h     0109h     0112h    000ah      CODE               __DELAYX (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V7.x\LIB\LIBHOLTEKGCC.LIB)
+     00h     0113h     013fh    002dh      CODE               _i2c_stop (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     0140h     017ah    003bh      CODE               _i2c_read2 (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     017bh     01c3h    0049h      CODE               _i2c_write2 (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     01c4h     01e8h    0025h      CODE               _i2c_start (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     01e9h     01f5h    000dh      CODE               _i2c_init (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     01f6h     0240h    004bh      CODE               _i2c_EEPROM_readData_2 (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     0241h     025eh    001eh      CODE               _strlen (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V7.x\LIB\v3_lmrmc.lib)
+     00h     025fh     0299h    003bh      CODE               _i2c_EEPROM_WriteData_2 (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     029ah     02beh    0025h      CODE               _Bluetoothsend1 (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     02bfh     0309h    004bh      CODE               _i2c_EEPROM_readData_1 (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     030ah     0344h    003bh      CODE               _i2c_EEPROM_WriteData_1 (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     0345h     0369h    0025h      CODE               _Bluetoothsend (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     036ah     048dh    0124h      CODE               _ChangePassWord (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     048eh     04cch    003fh      CODE               _Find_Car (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     04cdh     04d3h    0007h      CODE               _Key_Lock_Close (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     04d4h     04dah    0007h      CODE               _Key_Lock_Open (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     04dbh     04e8h    000eh      CODE               _Anti_Close (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     04e9h     04f7h    000fh      CODE               _Anti_Open (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     04f8h     0505h    000eh      CODE               _Car_Close (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     0506h     0513h    000eh      CODE               _Car_Open (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     0514h     05e8h    00d5h      CODE               _Login (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     05e9h     05efh    0007h      CODE               _gpioinit (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     05f0h     068ah    009bh      CODE               _main (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST.OBJ)
+     00h     068bh     0698h    000eh      CODE               _builtin_holtek_delay_isr14 (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V7.x\LIB\LIBHOLTEKGCC.LIB)
+     00h     0699h     06a4h    000ch      CODE               _delay (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     06a5h     06c3h    001fh      CODE               _IFTTTSend (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     06c4h     0704h    0041h      CODE               _IFTTT (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     0705h     073fh    003bh      CODE               _i2c_read1 (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     0740h     078ch    004dh      CODE               _i2c_write1 (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     078dh     07a2h    0016h      CODE               _i2c_readData (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     07a3h     07b2h    0010h      CODE               _i2c_writeData_ra1 (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     07b3h     081ch    006ah      CODE               _Anti_theft (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     081dh     0827h    000bh      CODE               @ROMDATA_BASE (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\STARTUP1_L.OBJ)
+     00h     0080h     0080h    0001h      DATA     85        @data_ra (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V7.x\LIB\LIBHOLTEKGCC.LIB)
+     00h     0081h     0081h    0001h      DATA     72        @data_rb (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V7.x\LIB\LIBHOLTEKGCC.LIB)
+     00h     0082h     0082h    0001h      DATA     45        @data_rc (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V7.x\LIB\LIBHOLTEKGCC.LIB)
+     00h     0083h     0083h    0001h      DATA     11        @data_rd (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V7.x\LIB\LIBHOLTEKGCC.LIB)
+     00h     0084h     0084h    0001h      DATA     11        @data_re (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V7.x\LIB\LIBHOLTEKGCC.LIB)
+     00h     0085h     0085h    0001h      DATA     2         @data_r114 (isr:ra~rh)
+     00h     0086h     0086h    0001h      DATA     2         @data_r214 (isr:ra~rh)
+     00h     0087h     0087h    0001h      DATA     25        @data_ra14 (isr:ra~rh)
+     00h     0088h     0088h    0001h      DATA     14        @data_rb14 (isr:ra~rh)
+     00h     0089h     0089h    0001h      DATA     9         @data_rc14 (isr:ra~rh)
+     00h     008ah     008ah    0001h      DATA     4         @data_rd14 (isr:ra~rh)
+     00h     008bh     008bh    0001h      DATA     4         @data_re14 (isr:ra~rh)
+     00h     008ch     008ch    0001h      DATA     2         @data_rf14 (isr:ra~rh)
+     00h     008dh     008dh    0001h      DATA     2         @data_rg14 (isr:ra~rh)
+     00h     00dah     00dah    0001h      DATA     13        @HCCINIT_instruction (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST.OBJ)
+     00h     00dbh     00dbh    0001h      DATA     11        @HCCINIT_buffer (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST.OBJ)
+     00h     00dch     00ddh    0002h      DATA     11        @HCCINIT_userMode (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     00deh     00dfh    0002h      DATA     9         @HCCINIT_i (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     00e0h     00e3h    0004h      DATA     4         @HCCINIT_counter (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST.OBJ)
+     00h     00e4h     00e4h    0001h      DATA     3         @HCCINIT_TheftMode (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     00e5h     00e6h    0002h      DATA     2         @HCCINIT_gxh1 (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     00e7h     00e8h    0002h      DATA     2         @HCCINIT_gxh (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     00e9h     00e9h    0001h      DATA     2         @data_r314 (isr:ra~rh)
+     00h     00eah     00eah    0001h      DATA     2         @data_r414 (isr:ra~rh)
+     00h     00ebh     00ebh    0001h      DATA     2         @data_r514 (isr:ra~rh)
+     00h     00ech     00ech    0001h      DATA     2         @data_r614 (isr:ra~rh)
+     00h     00edh     00edh    0001h      DATA     2         @data_r714 (isr:ra~rh)
+
+     Local Sections
+
+     Bank    Start     End      Length     Class    AvgIns    Name
+     00h     00dah     00dah    0000h      LOCAL    0         @dummy (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST.OBJ)
+     00h     00d9h     00d9h    0001h      LOCAL    7         _main (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST.OBJ)
+     00h     0097h     0097h    0000h      LOCAL    0         _gpioinit (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     00b4h     00d7h    0024h      LOCAL    0.6944    _Login (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     0097h     0097h    0001h      LOCAL    17        _builtin_holtek_delay_isr00 (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V7.x\LIB\LIBHOLTEKGCC.LIB)
+     00h     0097h     009ah    0004h      LOCAL    5         _Bluetoothsend (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     008eh     008eh    0000h      LOCAL    0         __DELAYX (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V7.x\LIB\LIBHOLTEKGCC.LIB)
+     00h     008eh     008eh    0000h      LOCAL    0         _Crom2Prom (CROM2PROM)
+     00h     0098h     00b3h    001ch      LOCAL    0.75      _i2c_EEPROM_readData_2 (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     008eh     008eh    0000h      LOCAL    0         _i2c_init (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     008eh     008eh    0000h      LOCAL    0         _i2c_start (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     0097h     0097h    0001h      LOCAL    4         _i2c_write2 (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     0097h     0097h    0001h      LOCAL    2         _i2c_read2 (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     008eh     008eh    0000h      LOCAL    0         _i2c_stop (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     0098h     00b3h    001ch      LOCAL    0.75      _i2c_EEPROM_readData_1 (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     0097h     0097h    0000h      LOCAL    0         _Car_Open (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     0097h     0097h    0000h      LOCAL    0         _Car_Close (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     0097h     0097h    0000h      LOCAL    0         _Anti_Open (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     0097h     0097h    0000h      LOCAL    0         _Anti_Close (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     0097h     0097h    0000h      LOCAL    0         _Key_Lock_Open (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     0097h     0097h    0000h      LOCAL    0         _Key_Lock_Close (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     0098h     0098h    0000h      LOCAL    0         _Find_Car (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     00b4h     00d8h    0025h      LOCAL    0.7027    _ChangePassWord (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     0099h     00a1h    0009h      LOCAL    2.6667    _i2c_EEPROM_WriteData_1 (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     0097h     0098h    0002h      LOCAL    4         _strlen (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V7.x\LIB\v3_lmrmc.lib)
+     00h     0097h     009ah    0004h      LOCAL    3         _Bluetoothsend1 (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     0099h     00a1h    0009h      LOCAL    2.6667    _i2c_EEPROM_WriteData_2 (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     0097h     0097h    0000h      LOCAL    0         _SetUserModeZero (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     0097h     0097h    0000h      LOCAL    0         @dummy20 (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST.OBJ)
+     00h     0097h     0097h    0000h      LOCAL    0         _ISR_tmr0 (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST.OBJ)
+     00h     0095h     0096h    0002h      LOCAL    0         _Anti_theft (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     008fh     0091h    0003h      LOCAL    2.3333    _i2c_writeData_ra1 (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     008eh     008eh    0001h      LOCAL    4         _i2c_write1 (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     008fh     0091h    0003h      LOCAL    2.6667    _i2c_readData (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     008eh     008eh    0001h      LOCAL    2         _i2c_read1 (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     0094h     0094h    0001h      LOCAL    2         _IFTTT (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     0090h     0093h    0004h      LOCAL    6         _IFTTTSend (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     008eh     008fh    0002h      LOCAL    7         _delay (D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST1.OBJ)
+     00h     008eh     008eh    0001h      LOCAL    5         _builtin_holtek_delay_isr14 (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V7.x\LIB\LIBHOLTEKGCC.LIB)
+
+     Public Symbols Information
+     Address            Public by Name
+     04dbh              _Anti_Close
+     04e9h              _Anti_Open
+     07b3h              _Anti_theft
+     0345h              _Bluetoothsend
+     029ah              _Bluetoothsend1
+     04f8h              _Car_Close
+     0506h              _Car_Open
+     036ah              _ChangePassWord
+     0006h              _Crom2Prom
+     0005h              _Crom2PromNext
+     048eh              _Find_Car
+     06c4h              _IFTTT
+     06a5h              _IFTTTSend
+     0092h              _IFTTTSend_2
+     0055h              _ISR_tmr0
+     04cdh              _Key_Lock_Close
+     04d4h              _Key_Lock_Open
+     0514h              _Login
+     0002h              _SetUserModeZero
+     00e4h              _TheftMode
+     010ch              __DELAYX0
+     010bh              __DELAYX1
+     010bh              __DELAYX2
+     010ah              __DELAYX3
+     010ah              __DELAYX4
+     0109h              __DELAYX5
+     0109h              __DELAYX6
+     00fdh              __DELAYY0_isr00
+     068dh              __DELAYY0_isr14
+     00fdh              __DELAYY1_isr00
+     068dh              __DELAYY1_isr14
+     00fch              __DELAYY2_isr00
+     068ch              __DELAYY2_isr14
+     00fch              __DELAYY3_isr00
+     068ch              __DELAYY3_isr14
+     00fbh              __DELAYY4_isr00
+     068bh              __DELAYY4_isr14
+     00fbh              __DELAYY5_isr00
+     068bh              __DELAYY5_isr14
+     00dbh              _buffer
+     00e0h              _counter
+     0699h              _delay
+     05e9h              _gpioinit
+     00e7h              _gxh
+     00e5h              _gxh1
+     00deh              _i
+     030ah              _i2c_EEPROM_WriteData_1
+     025fh              _i2c_EEPROM_WriteData_2
+     02bfh              _i2c_EEPROM_readData_1
+     01f6h              _i2c_EEPROM_readData_2
+     01e9h              _i2c_init
+     0705h              _i2c_read1
+     0140h              _i2c_read2
+     078dh              _i2c_readData
+     01c4h              _i2c_start
+     0113h              _i2c_stop
+     0740h              _i2c_write1
+     017bh              _i2c_write2
+     07a3h              _i2c_writeData_ra1
+     008fh              _i2c_writeData_ra1_2
+     00dah              _instruction
+     05f0h              _main
+     0241h              _strlen
+     00dch              _userMode
+     0085h              r114
+     0086h              r214
+     00e9h              r314
+     00eah              r414
+     00ebh              r514
+     00ech              r614
+     00edh              r714
+     0080h              ra
+     0087h              ra14
+     0081h              rb
+     0088h              rb14
+     0082h              rc
+     0089h              rc14
+     0083h              rd
+     008ah              rd14
+     0084h              re
+     008bh              re14
+     008ch              rf14
+     008dh              rg14
+     081dh              startup_value_1
+
+     Address            Public by Value
+     0002h              _SetUserModeZero
+     0005h              _Crom2PromNext
+     0006h              _Crom2Prom
+     0055h              _ISR_tmr0
+     0080h              ra
+     0081h              rb
+     0082h              rc
+     0083h              rd
+     0084h              re
+     0085h              r114
+     0086h              r214
+     0087h              ra14
+     0088h              rb14
+     0089h              rc14
+     008ah              rd14
+     008bh              re14
+     008ch              rf14
+     008dh              rg14
+     008fh              _i2c_writeData_ra1_2
+     0092h              _IFTTTSend_2
+     00dah              _instruction
+     00dbh              _buffer
+     00dch              _userMode
+     00deh              _i
+     00e0h              _counter
+     00e4h              _TheftMode
+     00e5h              _gxh1
+     00e7h              _gxh
+     00e9h              r314
+     00eah              r414
+     00ebh              r514
+     00ech              r614
+     00edh              r714
+     00fbh              __DELAYY5_isr00
+     00fbh              __DELAYY4_isr00
+     00fch              __DELAYY3_isr00
+     00fch              __DELAYY2_isr00
+     00fdh              __DELAYY1_isr00
+     00fdh              __DELAYY0_isr00
+     0109h              __DELAYX6
+     0109h              __DELAYX5
+     010ah              __DELAYX4
+     010ah              __DELAYX3
+     010bh              __DELAYX2
+     010bh              __DELAYX1
+     010ch              __DELAYX0
+     0113h              _i2c_stop
+     0140h              _i2c_read2
+     017bh              _i2c_write2
+     01c4h              _i2c_start
+     01e9h              _i2c_init
+     01f6h              _i2c_EEPROM_readData_2
+     0241h              _strlen
+     025fh              _i2c_EEPROM_WriteData_2
+     029ah              _Bluetoothsend1
+     02bfh              _i2c_EEPROM_readData_1
+     030ah              _i2c_EEPROM_WriteData_1
+     0345h              _Bluetoothsend
+     036ah              _ChangePassWord
+     048eh              _Find_Car
+     04cdh              _Key_Lock_Close
+     04d4h              _Key_Lock_Open
+     04dbh              _Anti_Close
+     04e9h              _Anti_Open
+     04f8h              _Car_Close
+     0506h              _Car_Open
+     0514h              _Login
+     05e9h              _gpioinit
+     05f0h              _main
+     068bh              __DELAYY5_isr14
+     068bh              __DELAYY4_isr14
+     068ch              __DELAYY3_isr14
+     068ch              __DELAYY2_isr14
+     068dh              __DELAYY1_isr14
+     068dh              __DELAYY0_isr14
+     0699h              _delay
+     06a5h              _IFTTTSend
+     06c4h              _IFTTT
+     0705h              _i2c_read1
+     0740h              _i2c_write1
+     078dh              _i2c_readData
+     07a3h              _i2c_writeData_ra1
+     07b3h              _Anti_theft
+     081dh              startup_value_1
+
+Warning(L3009) : Same sub function exists between ISR(14H) CMG and MAIN CMG: _i2c_init
+Warning(L3009) : Same sub function exists between ISR(14H) CMG and MAIN CMG: _i2c_start
+Warning(L3009) : Same sub function exists between ISR(14H) CMG and MAIN CMG: _i2c_stop
+
+ROM Usage Statistics
+    Bank      Size      Used     Percentage
+     00h       2000h     0821h    25%
+     01h       2000h     0000h    0%
+     02h       2000h     0000h    0%
+     03h       2000h     0000h    0%
+     04h       2000h     0000h    0%
+     05h       2000h     0000h    0%
+     06h       2000h     0000h    0%
+     07h       2000h     0000h    0%
+     Total     10000h     0821h    3%
+
+RAM Usage Statistics
+    Bank      Size      Used     Percentage
+     00h       0080h     006eh    85%
+     01h       0080h     0000h    0%
+     02h       0080h     0000h    0%
+     03h       0080h     0000h    0%
+     04h       0080h     0000h    0%
+     05h       0080h     0000h    0%
+     06h       0080h     0000h    0%
+     07h       0080h     0000h    0%
+     08h       0080h     0000h    0%
+     09h       0080h     0000h    0%
+     0ah       0080h     0000h    0%
+     0bh       0080h     0000h    0%
+     0ch       0080h     0000h    0%
+     0dh       0080h     0000h    0%
+     0eh       0080h     0000h    0%
+     0fh       0080h     0000h    0%
+     10h       0080h     0000h    0%
+     11h       0080h     0000h    0%
+     12h       0080h     0000h    0%
+     13h       0080h     0000h    0%
+     14h       0080h     0000h    0%
+     15h       0080h     0000h    0%
+     16h       0080h     0000h    0%
+     17h       0080h     0000h    0%
+     18h       0080h     0000h    0%
+     19h       0080h     0000h    0%
+     1ah       0080h     0000h    0%
+     1bh       0080h     0000h    0%
+     1ch       0080h     0000h    0%
+     1dh       0080h     0000h    0%
+     1eh       0080h     0000h    0%
+     1fh       0080h     0000h    0%
+     Total     1000h     006eh    2%
+
+Use Stack Count
+_main: 4
+_ISR_tmr0: 4
+
+Call Tree
+    @dummy
+        _main (0)
+            _gpioinit (1)
+            _Login (1)
+                _builtin_holtek_delay_isr00 (2)
+                _Bluetoothsend (2)
+                    __DELAYX (3)
+                    _Crom2Prom (3)
+                _i2c_EEPROM_readData_2 (2)
+                    _i2c_init (3)
+                    _i2c_start (3)
+                        __DELAYX (4)
+                    _i2c_write2 (3)
+                        __DELAYX (4)
+                    _i2c_read2 (3)
+                        __DELAYX (4)
+                    _i2c_stop (3)
+                        __DELAYX (4)
+                    _builtin_holtek_delay_isr00 (3)
+                    _Crom2Prom (3)
+                _Crom2Prom (2)
+                _i2c_EEPROM_readData_1 (2)
+                    _i2c_init (3)
+                    _i2c_start (3)
+                        __DELAYX (4)
+                    _i2c_write2 (3)
+                        __DELAYX (4)
+                    _i2c_read2 (3)
+                        __DELAYX (4)
+                    _i2c_stop (3)
+                        __DELAYX (4)
+                    _builtin_holtek_delay_isr00 (3)
+                    _Crom2Prom (3)
+            _Car_Open (1)
+            _Car_Close (1)
+            _Anti_Open (1)
+            _Anti_Close (1)
+            _Key_Lock_Open (1)
+            _Key_Lock_Close (1)
+            _Find_Car (1)
+                _builtin_holtek_delay_isr00 (2)
+            _ChangePassWord (1)
+                _Crom2Prom (2)
+                _builtin_holtek_delay_isr00 (2)
+                _Bluetoothsend (2)
+                    __DELAYX (3)
+                    _Crom2Prom (3)
+                _i2c_EEPROM_WriteData_1 (2)
+                    _i2c_init (3)
+                    _i2c_start (3)
+                        __DELAYX (4)
+                    _i2c_write2 (3)
+                        __DELAYX (4)
+                    _Crom2Prom (3)
+                    _i2c_stop (3)
+                        __DELAYX (4)
+                    _builtin_holtek_delay_isr00 (3)
+                    _strlen (3)
+                        _Crom2Prom (4)
+                _i2c_EEPROM_readData_1 (2)
+                    _i2c_init (3)
+                    _i2c_start (3)
+                        __DELAYX (4)
+                    _i2c_write2 (3)
+                        __DELAYX (4)
+                    _i2c_read2 (3)
+                        __DELAYX (4)
+                    _i2c_stop (3)
+                        __DELAYX (4)
+                    _builtin_holtek_delay_isr00 (3)
+                    _Crom2Prom (3)
+                _Bluetoothsend1 (2)
+                    __DELAYX (3)
+                    _Crom2Prom (3)
+                _i2c_EEPROM_WriteData_2 (2)
+                    _i2c_init (3)
+                    _i2c_start (3)
+                        __DELAYX (4)
+                    _i2c_write2 (3)
+                        __DELAYX (4)
+                    _Crom2Prom (3)
+                    _i2c_stop (3)
+                        __DELAYX (4)
+                    _builtin_holtek_delay_isr00 (3)
+                    _strlen (3)
+                        _Crom2Prom (4)
+                _i2c_EEPROM_readData_2 (2)
+                    _i2c_init (3)
+                    _i2c_start (3)
+                        __DELAYX (4)
+                    _i2c_write2 (3)
+                        __DELAYX (4)
+                    _i2c_read2 (3)
+                        __DELAYX (4)
+                    _i2c_stop (3)
+                        __DELAYX (4)
+                    _builtin_holtek_delay_isr00 (3)
+                    _Crom2Prom (3)
+            _SetUserModeZero (1)
+    @dummy20
+        _ISR_tmr0 (0)
+            _Anti_theft (1)
+                _i2c_writeData_ra1 (2)
+                    _i2c_init (3)
+                    _i2c_start (3)
+                        __DELAYX (4)
+                    _i2c_write1 (3)
+                        __DELAYX (4)
+                    _i2c_stop (3)
+                        __DELAYX (4)
+                _i2c_readData (2)
+                    _i2c_init (3)
+                    _i2c_start (3)
+                        __DELAYX (4)
+                    _i2c_write1 (3)
+                        __DELAYX (4)
+                    _i2c_read1 (3)
+                        __DELAYX (4)
+                    _i2c_stop (3)
+                        __DELAYX (4)
+                _IFTTT (2)
+                    _IFTTTSend (3)
+                        _Crom2Prom (4)
+                        _delay (4)
+                    _delay (3)
+                _builtin_holtek_delay_isr14 (2)
+
+HLINK: Program entry point at section '@code' (address 0) of file 'D:\學校\LAB\智慧機車電子鎖專題\BlueTooth_Nomal\I2C TEST.OBJ'
+
+Total 0 error(s), Total 3 Warning(s)

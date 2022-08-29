@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/sky1"
+    android:orientation="vertical"
+    tools:context="com.tom.bluetoothcar.GuestUI">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button7"
+            style="@android:style/Widget.Button"
+            android:layout_width="300dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_selector"
+            android:gravity="center"
+            android:onClick="CarOpen"
+            android:text="開啟電門"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/button16"
+            android:layout_width="300dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_selector"
+            android:gravity="center"
+            android:onClick="CarClose"
+            android:text="關閉電門"
+            android:textAppearance="@android:style/TextAppearance.Material.Small.Inverse"
+            android:textSize="30sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button9"
+            style="@android:style/Widget.Button"
+            android:layout_width="300dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_selector"
+            android:onClick="OpenAntiTheft"
+            android:text="開啟防盜模式"
+            android:textColor="#FFFFFF"
+            android:textSize="28sp" />
+
+        <Button
+            android:id="@+id/button17"
+            android:layout_width="300dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_selector"
+            android:onClick="CloseAntiTheft"
+            android:text="關閉防盜模式"
+            android:textAppearance="@android:style/TextAppearance.Material.Small.Inverse"
+            android:textSize="28sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button10"
+        style="@android:style/Widget.Button"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/button_selector"
+        android:onClick="FindCar"
+        android:text="遠距尋車"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/button18"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/button_selector"
+        android:onClick="LoginOut"
+        android:text="登出"
+        android:textAppearance="@android:style/TextAppearance.Material.Small.Inverse"
+        android:textSize="30sp" />
+
+</LinearLayout>
